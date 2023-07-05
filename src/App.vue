@@ -3,11 +3,11 @@
     <a-layout-header class="header">
       <div class="icon logo" />
       <div class="icon icon-user" />
-      <a-menu v-model:selectedKeys="selectedKeys1" theme="dark" mode="horizontal" :style="{lineHeight: '64px'}">
-        <a-menu-item key="1">nav 1</a-menu-item>
-        <a-menu-item key="2">nav 2</a-menu-item>
-        <a-menu-item key="3">nav 3</a-menu-item>
-      </a-menu>
+      <a-breadcrumb style="margin: 16px; text-align: right; color: aliceblue">
+        <a-breadcrumb-item>Home</a-breadcrumb-item>
+        <a-breadcrumb-item>List</a-breadcrumb-item>
+        <a-breadcrumb-item>App</a-breadcrumb-item>
+      </a-breadcrumb>
     </a-layout-header>
 
     <a-layout style="height: 100vh; background: #441717">
