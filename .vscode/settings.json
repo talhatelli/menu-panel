@@ -1,3 +1,4 @@
 {
-    "vs-code-prettier-eslint.prettierLast": false
+    "vs-code-prettier-eslint.prettierLast": false,
+    "editor.formatOnSave": true
 }
