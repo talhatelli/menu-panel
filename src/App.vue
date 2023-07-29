@@ -1,23 +1,22 @@
 <template>
   <a-layout>
     <HeaderBar />
-    <a-layout style="height: 100vh; background: #441717">
+    <a-layout style="height: 100vh; background: #ffffff">
       <SideBar />
-      <Content />
     </a-layout>
   </a-layout>
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from "vue"
-import SideBar from "./components/SideBar.vue"
-import HeaderBar from "./components/HeaderBar.vue"
+import { defineComponent, ref } from "vue"
 import Content from "./components/Content.vue"
+import HeaderBar from "./components/HeaderBar.vue"
+import SideBar from "./components/SideBar.vue"
+
 export default defineComponent({
   components: {
     SideBar,
     HeaderBar,
-    // eslint-disable-next-line vue/no-reserved-component-names
     Content
   },
   setup() {
@@ -32,16 +31,20 @@ export default defineComponent({
 </script>
 <style>
 .icon {
-  background-size: 40px 40px; /* İstenilen genişlik ve yükseklik değerlerini burada belirtin */
-  width: 40px; /* Logo boyutunu ayarlayın */
+  background-size: 40px 40px;
+  /* İstenilen genişlik ve yükseklik değerlerini burada belirtin */
+  width: 40px;
+  /* Logo boyutunu ayarlayın */
   height: 40px;
   float: left;
   margin: 16px 24px 16px 0;
   border-radius: 50%;
 }
+
 .logo {
   background-image: url("icons/logo.jpeg");
 }
+
 .icon-user {
   background-image: url("icons/user.png");
   float: right;
