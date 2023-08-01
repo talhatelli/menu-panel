@@ -42,7 +42,7 @@
         </a-menu-item>
         <a-menu-item key="10">
           <nav>
-            <RouterLink to="/home">Create</RouterLink>
+            <RouterLink to="/categories/create">Create</RouterLink>
           </nav>
         </a-menu-item>
       </a-sub-menu>

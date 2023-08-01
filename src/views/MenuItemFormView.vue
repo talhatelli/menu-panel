@@ -1,11 +1,11 @@
 <template>
     <a-form class="form-container " :model="formState" v-bind="layout" name="nest-messages"
         :validate-messages="validateMessages" @finish="onFinish">
-        <a-form-item :name="['user', 'name']" :rules="[{ required: true }]">
+        <a-form-item :name="['user', 'name']">
             <label class="label">Name</label>
             <a-input v-model:value="formState.user.name" />
         </a-form-item>
-        <a-form-item style="width: 70v;" :name="['user', 'description']" :rules="[{ type: 'email' }]">
+        <a-form-item style="width: 70v;" :name="['user', 'description']">
             <label class="label">Description</label>
             <a-input v-model:value="formState.user.description" />
         </a-form-item>
@@ -13,11 +13,11 @@
             <label class="label">Image Url</label>
             <a-input v-model:value="formState.user.imgUrl" />
         </a-form-item>
-        <a-form-item :name="['user', 'categories']" :rules="[{ type: 'email' }]">
+        <a-form-item :name="['user', 'categories']">
             <label class="label">Categories</label>
             <a-input v-model:value="formState.user.categories" />
         </a-form-item>
-        <a-form-item :name="['user', 'price']" :rules="[{ type: 'email' }]">
+        <a-form-item :name="['user', 'price']">
             <label class="label">Price</label>
             <a-input v-model:value="formState.user.price" />
         </a-form-item>
