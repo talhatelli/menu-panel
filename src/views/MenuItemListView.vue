@@ -9,6 +9,24 @@
 </template>
 
 <script lang="ts" setup>
+import { menuItemListStore } from "../stores/menuItemListStore";
+import { onMounted, computed } from "vue";
+
+const store = menuItemListStore();
+const getUsers = computed(() => {
+  return store.getUsers;
+});
+const users = computed(() => {
+  return store.users;
+});
+onMounted(() => {
+  store.fetchUsers();
+  console.log("getUsers", getUsers)
+  console.log("users", users)
+  console.log("fetchUsers", store.fetchUsers)
+
+
+});
 const columns = [
   {
     title: 'Name',
