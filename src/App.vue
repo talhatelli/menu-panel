@@ -32,9 +32,7 @@ export default defineComponent({
 <style>
 .icon {
   background-size: 40px 40px;
-  /* İstenilen genişlik ve yükseklik değerlerini burada belirtin */
   width: 40px;
-  /* Logo boyutunu ayarlayın */
   height: 40px;
   float: left;
   margin: 16px 24px 16px 0;

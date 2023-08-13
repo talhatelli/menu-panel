@@ -1,14 +1,30 @@
 <template>
   <a-table :columns="columns" :data-source="data" style="height: 100vh;">
-    <template #imageSlot="{ record }">
-      <div>
-        <img :src="record.imageUrl" alt="Image" width="50" height="50" />
-      </div>
-    </template>
-    <template #nameSlot="{ text }">
-      <div class="name-cell">
-        {{ text }}
-      </div>
+    <template #bodyCell="{ column, record }">
+      <template v-if="column.key === 'imageUrl'">
+        <img :src="record.imageUrl" class="table-image">
+      </template>
+      <template v-else-if="column.key === 'name'">
+      </template>
+      <template v-else-if="column.key === 'price'">
+      </template>
+      <template v-else-if="column.key === 'date'">
+        <a-timeline>
+          <a-timeline-item color="green">
+            Created <br />
+            {{ formatDate(record.date) }}</a-timeline-item>
+          <a-timeline-item>
+            Update<br />
+            <p> {{ formatDate(record.updatedAt) }}</p>
+          </a-timeline-item>
+        </a-timeline>
+      </template>
+      <template v-else-if="column.key === 'status'">
+        <a-switch checked-children="✓" un-checked-children="X" v-model:checked="record.status" />
+      </template>
+      <template v-else-if="column.key === 'actions'">
+        <a href="url">{{ record.actions }}</a>
+      </template>
     </template>
   </a-table>
 </template>
@@ -21,6 +37,12 @@ export default defineComponent({
   setup() {
     const store = menuItemListStore();
     const data = ref([]);
+    const formatDate = (data) => {
+      const options = {
+        year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'
+      };
+      return new Date(data).toLocaleDateString(undefined, options);
+    };
 
     onMounted(async () => {
       await store.fetchUsers();
@@ -31,7 +53,8 @@ export default defineComponent({
           address: user.description,
           price: user.price,
           date: user.createdAt,
-          status: user.isDeleted ? 'Deleted' : 'Active',
+          updatedAt: user.updatedAt,
+          status: user.isDeleted,
           actions: 'detail edit',
           imageUrl: user.imageUrl,
         };
@@ -41,7 +64,7 @@ export default defineComponent({
     const columns = [
       {
         dataIndex: "imageUrl",
-        key: "image",
+        key: "imageUrl",
         scopedSlots: { customRender: 'imageSlot' },
       },
       {
@@ -53,25 +76,25 @@ export default defineComponent({
       {
         title: "PRICE",
         dataIndex: "price",
-        key: "address 1",
+        key: "price",
         ellipsis: true,
       },
       {
         title: 'DATE',
         dataIndex: 'date',
-        key: 'address 2',
+        key: 'date',
         ellipsis: true,
       },
       {
         title: 'STATUS',
         dataIndex: 'status',
-        key: 'address 3',
+        key: 'status',
         ellipsis: true,
       },
       {
         title: 'ACTIONS',
         dataIndex: 'actions',
-        key: 'address 4',
+        key: 'actions',
         ellipsis: true,
       },
     ];
@@ -79,14 +102,19 @@ export default defineComponent({
     return {
       columns,
       data,
+      formatDate
     };
   },
 });
 </script>
 
 <style>
-.name-cell {
-  color: blue;
-  font-size: large;
+.table-image {
+  display: block;
+  object-fit: cover;
+  margin: 0 auto;
+  width: 150px;
+  height: 100px;
+  border-radius: 5%;
 }
 </style>
