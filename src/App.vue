@@ -9,15 +9,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue"
-import Content from "./components/Content.vue"
 import HeaderBar from "./components/HeaderBar.vue"
 import SideBar from "./components/SideBar.vue"
 
 export default defineComponent({
   components: {
     SideBar,
-    HeaderBar,
-    Content
+    HeaderBar
   },
   setup() {
     return {
@@ -29,31 +27,3 @@ export default defineComponent({
   }
 })
 </script>
-<style>
-.icon {
-  background-size: 40px 40px;
-  width: 40px;
-  height: 40px;
-  float: left;
-  margin: 16px 24px 16px 0;
-  border-radius: 50%;
-}
-
-.logo {
-  background-image: url("icons/logo.jpeg");
-}
-
-.icon-user {
-  background-image: url("icons/user.png");
-  float: right;
-}
-
-.admin-logo {
-  float: right;
-  margin: 16px 0 16px 24px;
-}
-
-.site-layout-background {
-  background: #fff;
-}
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <a-table :columns="columns" :data-source="data" style="height: 100vh;">
+  <a-table class="table" :columns="columns" :data-source="data">
     <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'imageUrl'">
         <img :src="record.imageUrl" class="table-image">
@@ -32,21 +32,30 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
 import { menuItemListStore } from "../stores/menuItemListStore";
+import { useDateOptions } from "../utils/dateUtils";
+
 
 export default defineComponent({
   setup() {
     const store = menuItemListStore();
-    const data = ref([]);
+    const data: Ref<YourDataArrayType> = ref([]);
     const formatDate = (data) => {
-      const options = {
-        year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'
-      };
+      const { options } = useDateOptions();
       return new Date(data).toLocaleDateString(undefined, options);
     };
+    interface User {
+      name: string;
+      description: string;
+      price: number;
+      createdAt: string;
+      updatedAt: string;
+      isDeleted: boolean;
+      imageUrl: string;
+    }
 
     onMounted(async () => {
       await store.fetchUsers();
-      const users = store.getUsers;
+      const users: User[] = store.getUsers;
       data.value = users.map((user) => {
         return {
           name: user.name,
@@ -55,7 +64,7 @@ export default defineComponent({
           date: user.createdAt,
           updatedAt: user.updatedAt,
           status: user.isDeleted,
-          actions: 'detail edit',
+          actions: 'Detail Edit',
           imageUrl: user.imageUrl,
         };
       });
@@ -102,19 +111,9 @@ export default defineComponent({
     return {
       columns,
       data,
-      formatDate
+      formatDate,
+      useDateOptions
     };
   },
 });
 </script>
-
-<style>
-.table-image {
-  display: block;
-  object-fit: cover;
-  margin: 0 auto;
-  width: 150px;
-  height: 100px;
-  border-radius: 5%;
-}
-</style>
