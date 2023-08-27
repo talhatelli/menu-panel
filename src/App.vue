@@ -3,19 +3,20 @@
     <HeaderBar />
     <a-layout style="height: 100vh; background: #ffffff">
       <SideBar />
+      <RouterView />
     </a-layout>
   </a-layout>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue"
-import HeaderBar from "./components/HeaderBar.vue"
-import SideBar from "./components/SideBar.vue"
+import HeaderBar from "./components/HeaderBar/HeaderBar.vue"
+import SideBar from "./components/SideBar/SideBar.vue"
 
 export default defineComponent({
   components: {
-    SideBar,
-    HeaderBar
+    HeaderBar,
+    SideBar
   },
   setup() {
     return {

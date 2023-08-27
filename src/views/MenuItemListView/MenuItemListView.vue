@@ -31,18 +31,17 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
-import { menuItemListStore } from "../stores/menuItemListStore";
-import { useDateOptions } from "../utils/dateUtils";
+import { menuItemListStore } from "@/stores/menuItemListStore";
+import { useDateOptions } from "@/utils";
+import "./style.css"
 
 
 export default defineComponent({
   setup() {
     const store = menuItemListStore();
-    const data: Ref<YourDataArrayType> = ref([]);
-    const formatDate = (data) => {
-      const { options } = useDateOptions();
-      return new Date(data).toLocaleDateString(undefined, options);
-    };
+    const data = ref([]);
+    const formatDate = useDateOptions;
+
     interface User {
       name: string;
       description: string;

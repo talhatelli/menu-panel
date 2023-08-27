@@ -16,7 +16,6 @@
       </a-sub-menu>
     </a-menu>
   </a-layout-sider>
-  <RouterView />
 </template>
 <script lang="ts" setup>
 import { reactive } from "vue"

@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { message } from 'ant-design-vue';
+
 
 export const menuItemListStore = defineStore("user", {
   state: () => ({
@@ -17,9 +19,9 @@ export const menuItemListStore = defineStore("user", {
         this.users = data.data
       }
       catch (error) {
-        alert(error)
-        console.log(error)
+        message.error('Data Baseye Not Connected');
       }
+
     }
   },
 })

@@ -9,6 +9,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
+import "./style.css"
 
 export default defineComponent({
   setup() {

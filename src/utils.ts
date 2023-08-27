@@ -1,9 +1,7 @@
-export function useDateOptions() {
+export function useDateOptions(date) {
+
     const options = {
         year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'
     };
-
-    return {
-        options
-    };
+    return new Date(date).toLocaleDateString(undefined, options);
 }
