@@ -1,35 +1,26 @@
-@import './base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
+.icon {
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin: 16px 24px 16px 0;
+    border-radius: 50%;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
+.logo {
+    background-image: url("icons/logo.jpeg");
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.icon-user {
+    background-image: url("icons/user.png");
+    float: right;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+.admin-logo {
+    float: right;
+    margin: 16px 0 16px 24px;
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.site-layout-background {
+    background: #fff;
 }

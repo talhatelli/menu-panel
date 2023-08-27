@@ -1,0 +1,11 @@
+.breadcrumb {
+    margin: 20px;
+    display: flex;
+    justify-content: flex-end;
+    color: aliceblue;
+
+    .mail {
+        color: white;
+        margin-inline: 30px;
+    }
+}
