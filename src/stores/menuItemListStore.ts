@@ -5,23 +5,22 @@ import { message } from 'ant-design-vue';
 
 export const menuItemListStore = defineStore("user", {
   state: () => ({
-    users: [],
+    menuItems: [],
   }),
   getters: {
-    getUsers(state) {
-      return state.users
+    getMenuItem(state) {
+      return state.menuItems
     }
   },
   actions: {
-    async fetchUsers() {
+    async fetcMenuItem() {
       try {
         const data = await axios.get('http://localhost:5001/menu-items')
-        this.users = data.data
+        this.menuItems = data.data
       }
       catch (error) {
         message.error('Data Baseye Not Connected');
       }
-
     }
   },
 })

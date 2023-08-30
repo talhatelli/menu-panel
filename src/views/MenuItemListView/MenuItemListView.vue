@@ -53,9 +53,9 @@ export default defineComponent({
     }
 
     onMounted(async () => {
-      await store.fetchUsers();
-      const users: User[] = store.getUsers;
-      data.value = users.map((user) => {
+      await store.fetcMenuItem();
+      const items: items[] = store.getMenuItem;
+      data.value = items.map((user) => {
         return {
           name: user.name,
           address: user.description,
