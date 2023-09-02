@@ -1,21 +1,20 @@
 <template>
   <a-table class="table" :columns="columns" :data-source="data">
-    <template #bodyCell="{ column, record }">
+    <template #bodyCell="{column, record}">
       <template v-if="column.key === 'imageUrl'">
-        <img :src="record.imageUrl" class="table-image">
+        <img :src="record.imageUrl" class="table-image" />
       </template>
-      <template v-else-if="column.key === 'name'">
-      </template>
-      <template v-else-if="column.key === 'price'">
-      </template>
+      <template v-else-if="column.key === 'name'"> </template>
+      <template v-else-if="column.key === 'price'"> </template>
       <template v-else-if="column.key === 'date'">
         <a-timeline>
           <a-timeline-item color="green">
             Created <br />
-            {{ formatDate(record.date) }}</a-timeline-item>
+            {{ formatDate(record.date) }}</a-timeline-item
+          >
           <a-timeline-item>
             Update<br />
-            <p> {{ formatDate(record.updatedAt) }}</p>
+            <p>{{ formatDate(record.updatedAt) }}</p>
           </a-timeline-item>
         </a-timeline>
       </template>
@@ -30,89 +29,88 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
-import { menuItemListStore } from "@/stores/menuItemListStore";
-import { useDateOptions } from "@/utils";
+import {defineComponent, onMounted, ref} from "vue"
+import {menuItemListStore} from "@/stores/menuItemListStore"
+import {useDateOptions} from "@/utils"
 import "./style.css"
-
 
 export default defineComponent({
   setup() {
-    const store = menuItemListStore();
-    const data = ref([]);
-    const formatDate = useDateOptions;
+    const store = menuItemListStore()
+    const data = ref([])
+    const formatDate = useDateOptions
 
-    interface User {
-      name: string;
-      description: string;
-      price: number;
-      createdAt: string;
-      updatedAt: string;
-      isDeleted: boolean;
-      imageUrl: string;
+    interface Items {
+      name: string
+      description: string
+      price: number
+      createdAt: string
+      updatedAt: string
+      isDeleted: boolean
+      imageUrl: string
     }
 
     onMounted(async () => {
-      await store.fetcMenuItem();
-      const items: items[] = store.getMenuItem;
-      data.value = items.map((user) => {
+      await store.fetcMenuItem()
+      const items: items[] = store.getMenuItem
+      data.value = items.map(item => {
         return {
-          name: user.name,
-          address: user.description,
-          price: user.price,
-          date: user.createdAt,
-          updatedAt: user.updatedAt,
-          status: user.isDeleted,
-          actions: 'Detail Edit',
-          imageUrl: user.imageUrl,
-        };
-      });
-    });
+          name: item.name,
+          address: item.description,
+          price: item.price,
+          date: item.createdAt,
+          updatedAt: item.updatedAt,
+          status: item.isDeleted,
+          actions: "Detail Edit",
+          imageUrl: item.imageUrl
+        }
+      })
+    })
 
     const columns = [
       {
         dataIndex: "imageUrl",
         key: "imageUrl",
-        scopedSlots: { customRender: 'imageSlot' },
+        scopedSlots: {customRender: "imageSlot"}
       },
       {
         title: "Name",
         dataIndex: "name",
         key: "name",
-        scopedSlots: { customRender: 'nameSlot' },
+        scopedSlots: {customRender: "nameSlot"}
       },
       {
         title: "PRICE",
         dataIndex: "price",
         key: "price",
-        ellipsis: true,
+        ellipsis: true
       },
       {
-        title: 'DATE',
-        dataIndex: 'date',
-        key: 'date',
-        ellipsis: true,
+        title: "DATE",
+        dataIndex: "date",
+        key: "date",
+        ellipsis: true
       },
       {
-        title: 'STATUS',
-        dataIndex: 'status',
-        key: 'status',
-        ellipsis: true,
+        title: "STATUS",
+        dataIndex: "status",
+        key: "status",
+        ellipsis: true
       },
       {
-        title: 'ACTIONS',
-        dataIndex: 'actions',
-        key: 'actions',
-        ellipsis: true,
-      },
-    ];
+        title: "ACTIONS",
+        dataIndex: "actions",
+        key: "actions",
+        ellipsis: true
+      }
+    ]
 
     return {
       columns,
       data,
       formatDate,
       useDateOptions
-    };
-  },
-});
+    }
+  }
+})
 </script>

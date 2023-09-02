@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import axios from 'axios'
+import axios from 'axios';
 import { message } from 'ant-design-vue';
-
+import  ENDPOINTS  from './endpoints';
 
 export const categoryListStore = defineStore("user", {
     state: () => ({
@@ -15,8 +15,8 @@ export const categoryListStore = defineStore("user", {
     actions: {
         async fetchCategories() {
             try {
-                const data = await axios.get('http://localhost:5001/categories')
-                this.categories = data.data
+                const {data}= await axios.get(ENDPOINTS.categories)
+                this.categories = data
             }
             catch (error) {
                 message.error('Data Baseye Not Connected');

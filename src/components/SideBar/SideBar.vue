@@ -31,7 +31,7 @@
   </a-layout-sider>
 </template>
 <script lang="ts" setup>
-import { reactive } from "vue"
+import {reactive} from "vue"
 
 const selectedKeys2 = reactive(["1"])
 const openKeys = reactive(["sub1"])
