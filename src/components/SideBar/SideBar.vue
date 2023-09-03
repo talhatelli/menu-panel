@@ -1,7 +1,7 @@
 <template>
   <a-layout-sider>
     <a-menu class="custom-menu" v-model:selectedKeys="selectedKeys2" v-model:openKeys="openKeys" mode="inline">
-      <a-sub-menu key="sub2">
+      <a-sub-menu key="sub1">
         <template #title>
           <span>
             <laptop-outlined />
@@ -14,11 +14,24 @@
           </nav>
         </a-menu-item>
       </a-sub-menu>
+      <a-sub-menu key="sub2">
+        <template #title>
+          <span>
+            <laptop-outlined />
+            Category
+          </span>
+        </template>
+        <a-menu-item key="5">
+          <nav>
+            <RouterLink to="/categories">List</RouterLink>
+          </nav>
+        </a-menu-item>
+      </a-sub-menu>
     </a-menu>
   </a-layout-sider>
 </template>
 <script lang="ts" setup>
-import { reactive } from "vue"
+import {reactive} from "vue"
 
 const selectedKeys2 = reactive(["1"])
 const openKeys = reactive(["sub1"])

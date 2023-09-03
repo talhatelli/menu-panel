@@ -1,27 +1,27 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { message } from 'ant-design-vue';
+import  ENDPOINTS  from './endpoints';
 
 
 export const menuItemListStore = defineStore("user", {
   state: () => ({
-    users: [],
+    menuItems: [],
   }),
   getters: {
-    getUsers(state) {
-      return state.users
+    getMenuItem(state) {
+      return state.menuItems
     }
   },
   actions: {
-    async fetchUsers() {
+    async fetcMenuItem() {
       try {
-        const data = await axios.get('http://localhost:5001/menu-items')
-        this.users = data.data
+        const {data}= await axios.get(ENDPOINTS.menuItems)
+        this.menuItems = data
       }
       catch (error) {
         message.error('Data Baseye Not Connected');
       }
-
     }
   },
 })
