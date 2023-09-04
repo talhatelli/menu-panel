@@ -13,6 +13,11 @@
             <RouterLink to="/menu-items">List</RouterLink>
           </nav>
         </a-menu-item>
+        <a-menu-item key="6">
+          <nav>
+            <RouterLink to="/menu-items/create">Create</RouterLink>
+          </nav>
+        </a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub2">
         <template #title>
@@ -31,7 +36,7 @@
   </a-layout-sider>
 </template>
 <script lang="ts" setup>
-import {reactive} from "vue"
+import { reactive } from "vue"
 
 const selectedKeys2 = reactive(["1"])
 const openKeys = reactive(["sub1"])
