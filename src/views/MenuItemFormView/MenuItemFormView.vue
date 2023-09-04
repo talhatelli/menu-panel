@@ -47,7 +47,7 @@ const useForm = Form.useForm;
 
 export default defineComponent({
 
-    name: 'new_company',
+    name: 'menu-item-form',
     components: {
         EditFilled,
     },
@@ -108,7 +108,6 @@ export default defineComponent({
             validate()
                 .then(() => {
                     store.NewMenuItem(modelRef)
-                    console.log('%cMenuItemFormView.vue line:97 modelRef.value', 'color: #007acc;', modelRef);
                 })
         };
         return {
