@@ -1,6 +1,6 @@
 <template>
     <div class="full-screen-form ">
-        <a-card class="general_card add_form" :bordered="false" :loading="loading" title="Product Add">
+        <a-card class="general_card add_form" :bordered="false" title="Product Add" style="  width: 100%; height: 100vh;">
             <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
                 <a-divider orientation="left">Info Product</a-divider>
                 <div class="channel_infos">
@@ -13,8 +13,10 @@
                     <a-form-item label="Image Url" v-bind="validateInfos.imageUrl">
                         <a-input name="imageUrl" v-model:value="modelRef.imageUrl" placeholder="https://..." />
                     </a-form-item>
-                    <a-form-item label="Categories" v-bind="validateInfos.categories">
-                        <a-input name="categories" v-model:value="modelRef.categories" />
+                    <a-form-item label="Categories" style="width: 100% ; max-height: 300px; overflow-y: auto;">
+                        <a-select v-model:value="modelRef.categories" mode="multiple" placeholder="Inserted are removed"
+                            :options="formattedOptions">
+                        </a-select>
                     </a-form-item>
                     <a-form-item label="Price" v-bind="validateInfos.price">
                         <a-input name="price" v-model:value="modelRef.price" placeholder="100tl" />
@@ -37,38 +39,46 @@
   
   
 <script>
-import { EditFilled } from '@ant-design/icons-vue';
-
+import { ref, onMounted } from 'vue';
 import { reactive, defineComponent } from 'vue';
 import { Form } from "ant-design-vue";
 import { menuItemFormStore } from "@/stores/menuItemFormStore"
+import { categoryListStore } from "@/stores/categoryListStore";
 
 const useForm = Form.useForm;
 
 export default defineComponent({
 
     name: 'menu-item-form',
-    components: {
-        EditFilled,
-    },
-    data() {
-        return {
-            loading: false,
-            company: []
-        }
-    },
-    mounted() {
 
-    },
     setup() {
-        const store = menuItemFormStore()
+        const categoryList = categoryListStore();
+        const store = menuItemFormStore();
+
+        const formattedOptions = ref([]);
+        const data = ref([])
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        onMounted(async () => {
+            console.log('%cMenuItemFormView.vue line:73 categoryList', 'color: #007acc;', categoryList.getCategories);
+            console.log('%cMenuItemFormView.vue line:73 categoryList', 'color: #007acc;', categoryList.getCategories);
+            console.log('%cMenuItemFormView.vue line:73 categoryList', 'color: #007acc;', categoryList.fetchCategories);
+            await categoryList.fetchCategories()
+            const items = categoryList.getCategories
+            data.value = items.map(item => {
+                return {
+                    label: item.name,
+                    value: item._id,
+                }
+            })
+            formattedOptions.value = data.value;
+        })
 
         const modelRef = reactive({
-            name: "",
-            description: "",
+            name: "sadads",
+            description: "sdadsads",
             imageUrl: "",
-            categories: "",
-            price: "",
+            categories: "6485cce6d3a56719b3015538",
+            price: "20",
         });
         const rulesRef = reactive({
             name: [
@@ -107,8 +117,8 @@ export default defineComponent({
             e.preventDefault();
             validate()
                 .then(() => {
-                    store.NewMenuItem(modelRef)
-                })
+                    store.NewMenuItem(modelRef);
+                });
         };
         return {
             labelCol: { span: 24 },
@@ -118,6 +128,8 @@ export default defineComponent({
             resetFields,
             modelRef,
             onSubmit,
+            formattedOptions,
+            data
         };
     },
 });

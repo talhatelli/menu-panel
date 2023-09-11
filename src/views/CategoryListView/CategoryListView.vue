@@ -1,6 +1,6 @@
 <template>
   <a-table class="table" :columns="columns" :data-source="data">
-    <template #bodyCell="{column, record}">
+    <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'"> </template>
       <template v-else-if="column.key === 'createdAt'">
         <a-timeline>
@@ -24,9 +24,9 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, ref} from "vue"
-import {categoryListStore} from "@/stores/categoryListStore"
-import {useDateOptions} from "@/utils"
+import { defineComponent, onMounted, ref } from "vue"
+import { categoryListStore } from "@/stores/categoryListStore"
+import { useDateOptions } from "@/utils"
 import "./style.css"
 
 export default defineComponent({
@@ -57,7 +57,7 @@ export default defineComponent({
         title: "Name",
         dataIndex: "name",
         key: "name",
-        scopedSlots: {customRender: "nameSlot"}
+        scopedSlots: { customRender: "nameSlot" }
       },
       {
         title: "Create At",
