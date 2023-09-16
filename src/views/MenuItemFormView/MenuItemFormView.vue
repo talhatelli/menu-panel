@@ -44,6 +44,7 @@ import {reactive, defineComponent} from "vue"
 import {Form} from "ant-design-vue"
 import {menuItemFormStore} from "@/stores/menuItemFormStore"
 import {categoryListStore} from "@/stores/categoryListStore"
+import "./style.css"
 
 const useForm = Form.useForm
 
@@ -130,57 +131,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped>
-.full-screen-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  width: 100%;
-  background-color: #f0f0f0;
-  /* Opsiyonel: Arkaplan rengi */
-}
-
-.ant-card-body {
-  max-height: calc(100vh - 57px);
-  overflow-y: auto;
-}
-
-.ant-card-head {
-  background: #1890ff;
-  border: 0;
-}
-
-.ant-card-head-wrapper {
-  flex-direction: row-reverse;
-  color: #fff;
-}
-
-.ant-card-extra {
-  margin-right: 15px;
-  color: #fff;
-}
-
-.channel_infos {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 40px;
-
-  .ant-form-item {
-    width: 50%;
-    display: flex;
-
-    .ant-form-item-label {
-      max-width: none;
-      flex: 100%;
-      text-align: left;
-    }
-
-    .ant-form-item-control-wrapper {
-      max-width: none;
-      flex: 0 0 95%;
-    }
-  }
-}
-</style>
