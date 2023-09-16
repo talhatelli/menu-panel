@@ -1,190 +1,186 @@
 <template>
-    <div class="full-screen-form ">
-        <a-card class="general_card add_form" :bordered="false" title="Product Add" style="  width: 100%; height: 100vh;">
-            <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
-                <a-divider orientation="left">Info Product</a-divider>
-                <div class="channel_infos">
-                    <a-form-item label="Name" v-bind="validateInfos.name">
-                        <a-input name="company_name" v-model:value="modelRef.name" />
-                    </a-form-item>
-                    <a-form-item label="Description" v-bind="validateInfos.description">
-                        <a-input name="description" v-model:value="modelRef.description" />
-                    </a-form-item>
-                    <a-form-item label="Image Url" v-bind="validateInfos.imageUrl">
-                        <a-input name="imageUrl" v-model:value="modelRef.imageUrl" placeholder="https://..." />
-                    </a-form-item>
-                    <a-form-item label="Categories" style="width: 100% ; max-height: 300px; overflow-y: auto;">
-                        <a-select v-model:value="modelRef.categories" mode="multiple" placeholder="Inserted are removed"
-                            :options="formattedOptions">
-                        </a-select>
-                    </a-form-item>
-                    <a-form-item label="Price" v-bind="validateInfos.price">
-                        <a-input name="price" v-model:value="modelRef.price" placeholder="100tl" />
-                    </a-form-item>
-                </div>
-                <a-divider orientation="left">
-                    <a-form-item :wrapper-col="{ span: 14, offset: 1 }">
-                        <a-button type="primary" @click="onSubmit">
-                            Submit
-                        </a-button>
-                        <a-button style="margin-left: 10px;" @click="resetFields">
-                            Clean
-                        </a-button>
-                    </a-form-item>
-                </a-divider>
-            </a-form>
-        </a-card>
-    </div>
+  <div class="full-screen-form">
+    <a-card class="general_card add_form" :bordered="false" title="Product Add" style="width: 100%; height: 100vh">
+      <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
+        <a-divider orientation="left">Info Product</a-divider>
+        <div class="channel_infos">
+          <a-form-item label="Name" v-bind="validateInfos.name">
+            <a-input name="company_name" v-model:value="modelRef.name" />
+          </a-form-item>
+          <a-form-item label="Description" v-bind="validateInfos.description">
+            <a-input name="description" v-model:value="modelRef.description" />
+          </a-form-item>
+          <a-form-item label="Image Url" v-bind="validateInfos.imageUrl">
+            <a-input name="imageUrl" v-model:value="modelRef.imageUrl" placeholder="https://..." />
+          </a-form-item>
+          <a-form-item label="Categories" style="width: 100%; max-height: 300px; overflow-y: auto">
+            <a-select
+              v-model:value="modelRef.categories"
+              mode="multiple"
+              placeholder="Select the Category"
+              :options="formattedOptions"
+            >
+            </a-select>
+          </a-form-item>
+          <a-form-item label="Price" v-bind="validateInfos.price">
+            <a-input name="price" v-model:value="modelRef.price" placeholder="100tl" />
+          </a-form-item>
+        </div>
+        <a-divider orientation="left">
+          <a-form-item :wrapper-col="{span: 14, offset: 1}">
+            <a-button type="primary" @click="onSubmit"> Submit </a-button>
+            <a-button style="margin-left: 10px" @click="resetFields"> Clean </a-button>
+          </a-form-item>
+        </a-divider>
+      </a-form>
+    </a-card>
+  </div>
 </template>
-  
-  
-<script>
-import { ref, onMounted } from 'vue';
-import { reactive, defineComponent } from 'vue';
-import { Form } from "ant-design-vue";
-import { menuItemFormStore } from "@/stores/menuItemFormStore"
-import { categoryListStore } from "@/stores/categoryListStore";
 
-const useForm = Form.useForm;
+<script>
+import {ref, onMounted} from "vue"
+import {message} from "ant-design-vue"
+import {reactive, defineComponent} from "vue"
+import {Form} from "ant-design-vue"
+import {menuItemFormStore} from "@/stores/menuItemFormStore"
+import {categoryListStore} from "@/stores/categoryListStore"
+
+const useForm = Form.useForm
 
 export default defineComponent({
+  name: "menu-item-form",
 
-    name: 'menu-item-form',
+  setup() {
+    const store = menuItemFormStore()
+    const categoryList = categoryListStore()
 
-    setup() {
-        const categoryList = categoryListStore();
-        const store = menuItemFormStore();
-
-        const formattedOptions = ref([]);
-        const data = ref([])
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        onMounted(async () => {
-            console.log('%cMenuItemFormView.vue line:73 categoryList', 'color: #007acc;', categoryList.getCategories);
-            console.log('%cMenuItemFormView.vue line:73 categoryList', 'color: #007acc;', categoryList.getCategories);
-            console.log('%cMenuItemFormView.vue line:73 categoryList', 'color: #007acc;', categoryList.fetchCategories);
-            await categoryList.fetchCategories()
-            const items = categoryList.getCategories
-            data.value = items.map(item => {
-                return {
-                    label: item.name,
-                    value: item._id,
-                }
-            })
-            formattedOptions.value = data.value;
-        })
-
-        const modelRef = reactive({
-            name: "sadads",
-            description: "sdadsads",
-            imageUrl: "",
-            categories: "6485cce6d3a56719b3015538",
-            price: "20",
-        });
-        const rulesRef = reactive({
-            name: [
-                {
-                    required: true,
-                    message: 'Please enter the name of the product.'
-                }
-            ],
-            description: [
-                {
-                    required: true,
-                    message: 'Please enter the product description.'
-                }
-            ],
-            imageUrl: [
-                {
-                    required: true,
-                    message: 'Please enter the picture of the product.'
-                }
-            ],
-            categories: [
-                {
-                    required: true,
-                    message: 'Please enter the category of the product as id.'
-                }
-            ],
-            price: [
-                {
-                    required: true,
-                    message: 'Please enter the price of the product.'
-                }
-            ],
-        });
-        const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef);
-        const onSubmit = e => {
-            e.preventDefault();
-            validate()
-                .then(() => {
-                    store.NewMenuItem(modelRef);
-                });
-        };
+    const formattedOptions = ref([])
+    const data = ref([])
+    onMounted(async () => {
+      await categoryList.fetchCategories()
+      const items = categoryList.getCategories
+      data.value = items.map(item => {
         return {
-            labelCol: { span: 24 },
-            wrapperCol: { span: 23 },
-            validate,
-            validateInfos,
-            resetFields,
-            modelRef,
-            onSubmit,
-            formattedOptions,
-            data
-        };
-    },
-});
+          label: item.name,
+          value: item._id
+        }
+      })
+      formattedOptions.value = data.value
+    })
+
+    const modelRef = reactive({
+      name: "",
+      description: "",
+      imageUrl: "",
+      categories: [],
+      price: ""
+    })
+    const rulesRef = reactive({
+      name: [
+        {
+          required: true,
+          message: "Please enter the name of the product."
+        }
+      ],
+      description: [
+        {
+          required: true,
+          message: "Please enter the product description."
+        }
+      ],
+      imageUrl: [
+        {
+          required: true,
+          message: "Please enter the picture of the product."
+        }
+      ],
+      categories: [
+        {
+          required: true,
+          message: "Please enter the category of the product as id."
+        }
+      ],
+      price: [
+        {
+          required: true,
+          message: "Please enter the price of the product."
+        }
+      ]
+    })
+    const {resetFields, validate, validateInfos} = useForm(modelRef, rulesRef)
+    const onSubmit = e => {
+      e.preventDefault()
+      validate().then(() => {
+        store.NewMenuItem(modelRef)
+        resetFields()
+        message.success("Added Successfully")
+      })
+    }
+    return {
+      labelCol: {span: 24},
+      wrapperCol: {span: 23},
+      validate,
+      validateInfos,
+      resetFields,
+      modelRef,
+      onSubmit,
+      formattedOptions,
+      data
+    }
+  }
+})
 </script>
-  
+
 <style scoped>
 .full-screen-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
-    background-color: #f0f0f0;
-    /* Opsiyonel: Arkaplan rengi */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f0f0f0;
+  /* Opsiyonel: Arkaplan rengi */
 }
 
 .ant-card-body {
-    max-height: calc(100vh - 57px);
-    overflow-y: auto;
+  max-height: calc(100vh - 57px);
+  overflow-y: auto;
 }
 
 .ant-card-head {
-    background: #1890ff;
-    border: 0;
+  background: #1890ff;
+  border: 0;
 }
 
 .ant-card-head-wrapper {
-    flex-direction: row-reverse;
-    color: #fff;
+  flex-direction: row-reverse;
+  color: #fff;
 }
 
 .ant-card-extra {
-    margin-right: 15px;
-    color: #fff;
+  margin-right: 15px;
+  color: #fff;
 }
 
 .channel_infos {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 40px;
+
+  .ant-form-item {
+    width: 50%;
     display: flex;
-    flex-wrap: wrap;
-    padding: 0 40px;
 
-    .ant-form-item {
-        width: 50%;
-        display: flex;
-
-        .ant-form-item-label {
-            max-width: none;
-            flex: 100%;
-            text-align: left;
-        }
-
-        .ant-form-item-control-wrapper {
-            max-width: none;
-            flex: 0 0 95%;
-        }
+    .ant-form-item-label {
+      max-width: none;
+      flex: 100%;
+      text-align: left;
     }
+
+    .ant-form-item-control-wrapper {
+      max-width: none;
+      flex: 0 0 95%;
+    }
+  }
 }
 </style>
