@@ -1,8 +1,8 @@
 <template>
   <div class="full-screen-form">
-    <a-card class="general_card add_form" :bordered="false" title="Product Add" style="width: 100%; height: 100vh">
+    <a-card style="width: 100%; height: 100vh">
       <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
-        <div class="channel_infos">
+        <div class="form-infos">
           <a-form-item label="Name" v-bind="validateInfos.name">
             <a-input name="company_name" v-model:value="modelRef.name" />
           </a-form-item>

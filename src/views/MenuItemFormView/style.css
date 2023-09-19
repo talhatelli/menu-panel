@@ -6,28 +6,8 @@
     width: 100%;
     background-color: #f0f0f0;
   }
-  
-  .ant-card-body {
-    max-height: calc(100vh - 57px);
-    overflow-y: auto;
-  }
-  
-  .ant-card-head {
-    background: #1890ff;
-    border: 0;
-  }
-  
-  .ant-card-head-wrapper {
-    flex-direction: row-reverse;
-    color: #fff;
-  }
-  
-  .ant-card-extra {
-    margin-right: 15px;
-    color: #fff;
-  }
-  
-  .channel_infos {
+
+  .form-infos {
     display: flex;
     flex-wrap: wrap;
     padding: 0 40px;
