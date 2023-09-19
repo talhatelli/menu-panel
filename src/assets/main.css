@@ -8,7 +8,8 @@
 }
 
 .logo {
-    background-image: url("icons/logo.jpeg");
+    background-image: url("icons/logo.svg");
+    background-color: #fff
 }
 
 .icon-user {

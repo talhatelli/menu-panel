@@ -1,6 +1,6 @@
 <template>
   <a-table class="table" :columns="columns" :data-source="data">
-    <template #bodyCell="{ column, record }">
+    <template #bodyCell="{column, record}">
       <template v-if="column.key === 'name'"> </template>
       <template v-else-if="column.key === 'createdAt'">
         <a-timeline>
@@ -24,14 +24,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue"
-import { categoryListStore } from "@/stores/categoryListStore"
-import { useDateOptions } from "@/utils"
+import {defineComponent, onMounted, ref} from "vue"
+import {category} from "@/stores/category"
+import {useDateOptions} from "@/utils"
 import "./style.css"
 
 export default defineComponent({
   setup() {
-    const store = categoryListStore()
+    const store = category()
     const data = ref([])
     const formatDate = useDateOptions
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -57,7 +57,7 @@ export default defineComponent({
         title: "Name",
         dataIndex: "name",
         key: "name",
-        scopedSlots: { customRender: "nameSlot" }
+        scopedSlots: {customRender: "nameSlot"}
       },
       {
         title: "Create At",
@@ -87,3 +87,4 @@ export default defineComponent({
   }
 })
 </script>
+@/stores/category

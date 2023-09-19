@@ -2,18 +2,21 @@
   <div class="full-screen-form">
     <a-card class="general_card add_form" :bordered="false" title="Product Add" style="width: 100%; height: 100vh">
       <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
-        <a-divider orientation="left">Info Product</a-divider>
         <div class="channel_infos">
           <a-form-item label="Name" v-bind="validateInfos.name">
             <a-input name="company_name" v-model:value="modelRef.name" />
           </a-form-item>
-          <a-form-item label="Description" v-bind="validateInfos.description">
+          <a-form-item label="Description">
             <a-input name="description" v-model:value="modelRef.description" />
           </a-form-item>
-          <a-form-item label="Image Url" v-bind="validateInfos.imageUrl">
+          <a-form-item label="Image Url">
             <a-input name="imageUrl" v-model:value="modelRef.imageUrl" placeholder="https://..." />
           </a-form-item>
-          <a-form-item label="Categories" style="width: 100%; max-height: 300px; overflow-y: auto">
+          <a-form-item
+            label="Categories"
+            v-bind="validateInfos.categories"
+            style="width: 100%; max-height: 300px; overflow-y: auto"
+          >
             <a-select
               v-model:value="modelRef.categories"
               mode="multiple"
@@ -23,7 +26,7 @@
             </a-select>
           </a-form-item>
           <a-form-item label="Price" v-bind="validateInfos.price">
-            <a-input name="price" v-model:value="modelRef.price" placeholder="100tl" />
+            <a-input name="price" type="number" v-model:value="modelRef.price" placeholder="100tl" />
           </a-form-item>
         </div>
         <a-divider orientation="left">
@@ -42,8 +45,8 @@ import {ref, onMounted} from "vue"
 import {message} from "ant-design-vue"
 import {reactive, defineComponent} from "vue"
 import {Form} from "ant-design-vue"
-import {menuItemFormStore} from "@/stores/menuItemFormStore"
-import {categoryListStore} from "@/stores/categoryListStore"
+import {menuItem} from "@/stores/menuItem"
+import {category} from "@/stores/category"
 import "./style.css"
 
 const useForm = Form.useForm
@@ -52,8 +55,8 @@ export default defineComponent({
   name: "menu-item-form",
 
   setup() {
-    const store = menuItemFormStore()
-    const categoryList = categoryListStore()
+    const categoryList = category()
+    const store = menuItem()
 
     const formattedOptions = ref([])
     const data = ref([])
@@ -83,18 +86,6 @@ export default defineComponent({
           message: "Please enter the name of the product."
         }
       ],
-      description: [
-        {
-          required: true,
-          message: "Please enter the product description."
-        }
-      ],
-      imageUrl: [
-        {
-          required: true,
-          message: "Please enter the picture of the product."
-        }
-      ],
       categories: [
         {
           required: true,
@@ -112,7 +103,7 @@ export default defineComponent({
     const onSubmit = e => {
       e.preventDefault()
       validate().then(() => {
-        store.NewMenuItem(modelRef)
+        store.newMenuItem(modelRef)
         resetFields()
         message.success("Added Successfully")
       })
