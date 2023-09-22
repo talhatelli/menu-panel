@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg width="800px" height="800px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="48" height="48" fill="white" rx="50%" ry="50%"/>
-<rect x="12" y="34" width="24" height="8" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M29 34V20" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M22 34V26" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12 25V34H36V25C36 25 41 22 41 17C41 12 37 10 32 10C32 8 29 4 24 4C19 4 16 8 16 10C12 10 7 12 7 17C7 22 12 25 12 25Z" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M600 566.667H200V700H600V566.667Z" fill="#2F88FF" stroke="white" stroke-width="66.6667" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M483.333 566.666V333.333" stroke="white" stroke-width="66.6667" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M366.667 566.666V433.333" stroke="white" stroke-width="66.6667" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M200 416.667V566.667H600V416.667C600 416.667 683.333 366.667 683.333 283.334C683.333 200 616.666 166.667 533.333 166.667C533.333 133.334 483.333 66.667 400 66.667C316.666 66.667 266.666 133.334 266.666 166.667C200 166.667 116.667 200 116.667 283.334C116.667 366.667 200 416.667 200 416.667Z" stroke="white" stroke-width="66.6667" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
