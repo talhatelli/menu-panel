@@ -42,8 +42,9 @@ export default defineComponent({
       name: [
         {
           required: true,
-          message: "Please enter the name of the category."
-        }
+          message: "Please enter the name of the product."
+        },
+        {min: 3, max: 250, message: "Length should be 3 to 250"}
       ]
     })
     const {resetFields, validate, validateInfos} = useForm(modelRef, rulesRef)
