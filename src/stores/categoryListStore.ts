@@ -3,7 +3,7 @@ import axios from 'axios';
 import { message } from 'ant-design-vue';
 import  ENDPOINTS  from './endpoints';
 
-export const categoryListStore = defineStore("user", {
+export const category = defineStore("category", {
     state: () => ({
         categories: [],
     }),
@@ -20,6 +20,13 @@ export const categoryListStore = defineStore("user", {
             }
             catch (error) {
                 message.error('Data Baseye Not Connected');
+            }
+        },
+        async newCategory(formData: any) {
+            try {
+                await axios.post(ENDPOINTS.categories, formData);
+            } catch (error) {
+                message.error('Database Not Connected');
             }
         }
     },
