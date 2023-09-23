@@ -14,7 +14,7 @@ export const menuItem = defineStore("menu-item", {
     }
   },
   actions: {
-    async fetcMenuItem() {
+    async fetchMenuItem() {
       try {
         const {data}= await axios.get(ENDPOINTS.menuItems)
         this.menuItems = data

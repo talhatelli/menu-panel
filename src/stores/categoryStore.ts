@@ -19,7 +19,7 @@ export const category = defineStore("category", {
                 this.categories = data
             }
             catch (error) {
-                message.error('Data Baseye Not Connected');
+                message.error('Database Not Connected');
             }
         }
     },

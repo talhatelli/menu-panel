@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import {defineComponent, onMounted, ref} from "vue"
-import {category} from "@/stores/category"
+import {category} from "@/stores/categoryStore"
 import {useDateOptions} from "@/utils"
 import "./style.css"
 
@@ -87,4 +87,3 @@ export default defineComponent({
   }
 })
 </script>
-@/stores/category

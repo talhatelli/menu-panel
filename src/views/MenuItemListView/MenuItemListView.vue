@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import {defineComponent, onMounted, ref} from "vue"
-import {menuItem} from "@/stores/menuItem"
+import {menuItem} from "@/stores/menuItemStore"
 import {useDateOptions} from "@/utils"
 import "./style.css"
 
@@ -51,7 +51,7 @@ export default defineComponent({
     }
 
     onMounted(async () => {
-      await store.fetcMenuItem()
+      await store.fetchMenuItem()
       const items: items[] = store.getMenuItem
       data.value = items.map(item => {
         return {
@@ -114,4 +114,3 @@ export default defineComponent({
   }
 })
 </script>
-@/stores/menuItem
