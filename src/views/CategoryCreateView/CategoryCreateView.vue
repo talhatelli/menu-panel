@@ -53,7 +53,6 @@ export default defineComponent({
       validate().then(() => {
         create.newCategory(modelRef)
         resetFields()
-        message.success("Added Successfully")
       })
     }
     return {
