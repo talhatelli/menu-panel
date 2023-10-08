@@ -30,13 +30,13 @@
 
 <script lang="ts">
 import {defineComponent, onMounted, ref} from "vue"
-import {menuItem} from "@/stores/menuItemStore"
+import {menuItemStore} from "@/stores/menuItemStore"
 import {useDateOptions} from "@/utils"
 import "./style.css"
 
 export default defineComponent({
   setup() {
-    const store = menuItem()
+    const store = menuItemStore()
     const data = ref([])
     const formatDate = useDateOptions
 

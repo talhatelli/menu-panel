@@ -45,8 +45,8 @@ import {ref, onMounted} from "vue"
 import {message} from "ant-design-vue"
 import {reactive, defineComponent} from "vue"
 import {Form} from "ant-design-vue"
-import {menuItem} from "@/stores/menuItemStore"
-import {category} from "@/stores/categoryStore"
+import {menuItemStore} from "@/stores/menuItemStore"
+import {categoryStore} from "@/stores/categoryStore"
 import "./style.css"
 
 const useForm = Form.useForm
@@ -55,8 +55,8 @@ export default defineComponent({
   name: "menu-item-form",
 
   setup() {
-    const categoryList = category()
-    const store = menuItem()
+    const categoryList = categoryStore()
+    const store = menuItemStore()
 
     const formattedOptions = ref([])
     const data = ref([])

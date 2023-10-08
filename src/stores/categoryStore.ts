@@ -3,7 +3,7 @@ import axios from 'axios';
 import { message } from 'ant-design-vue';
 import  ENDPOINTS  from './endpoints';
 
-export const category = defineStore("category", {
+export const categoryStore = defineStore("categoryStore", {
     state: () => ({
         categories: [],
     }),

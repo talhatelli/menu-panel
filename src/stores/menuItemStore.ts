@@ -4,7 +4,7 @@ import { message } from 'ant-design-vue';
 import  ENDPOINTS  from './endpoints';
 
 
-export const menuItem = defineStore("menu-item", {
+export const menuItemStore = defineStore("menuItemStore", {
   state: () => ({
     menuItems: [],
   }),
