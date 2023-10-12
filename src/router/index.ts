@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import MenuItemListView from '@/views/MenuItemListView/MenuItemListView.vue';
-import CategoryList from '../views/CategoryListView/CategoryListView.vue'
+import CategoryListView from '@/views/CategoryListView/CategoryListView.vue'
+import MenuItemFormView from '@/views/MenuItemFormView/MenuItemFormView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -14,7 +15,12 @@ const router = createRouter({
     {
       path: '/categories',
       name: 'categories',
-      component:  CategoryList
+      component: CategoryListView
+    },
+    {
+      path: '/menu-items/create',
+      name: 'menu-items/create',
+      component: MenuItemFormView
     },
   ]
 })
