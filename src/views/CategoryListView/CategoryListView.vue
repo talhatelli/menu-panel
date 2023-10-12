@@ -25,13 +25,13 @@
 
 <script lang="ts">
 import {defineComponent, onMounted, ref} from "vue"
-import {categoryListStore} from "@/stores/categoryListStore"
+import {categoryStore} from "@/stores/categoryStore"
 import {useDateOptions} from "@/utils"
 import "./style.css"
 
 export default defineComponent({
   setup() {
-    const store = categoryListStore()
+    const store = categoryStore()
     const data = ref([])
     const formatDate = useDateOptions
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

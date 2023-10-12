@@ -30,13 +30,13 @@
 
 <script lang="ts">
 import {defineComponent, onMounted, ref} from "vue"
-import {menuItemListStore} from "@/stores/menuItemListStore"
+import {menuItemStore} from "@/stores/menuItemStore"
 import {useDateOptions} from "@/utils"
 import "./style.css"
 
 export default defineComponent({
   setup() {
-    const store = menuItemListStore()
+    const store = menuItemStore()
     const data = ref([])
     const formatDate = useDateOptions
 
@@ -51,7 +51,7 @@ export default defineComponent({
     }
 
     onMounted(async () => {
-      await store.fetcMenuItem()
+      await store.fetchMenuItem()
       const items: items[] = store.getMenuItem
       data.value = items.map(item => {
         return {

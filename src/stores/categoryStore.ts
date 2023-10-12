@@ -3,7 +3,7 @@ import axios from 'axios';
 import { message } from 'ant-design-vue';
 import  ENDPOINTS  from './endpoints';
 
-export const categoryListStore = defineStore("user", {
+export const categoryStore = defineStore("categoryStore", {
     state: () => ({
         categories: [],
     }),
@@ -19,7 +19,7 @@ export const categoryListStore = defineStore("user", {
                 this.categories = data
             }
             catch (error) {
-                message.error('Data Baseye Not Connected');
+                message.error('Database Not Connected');
             }
         }
     },
