@@ -1,26 +1,44 @@
-.icon {
-    background-size: 40px 40px;
-    width: 40px;
-    height: 40px;
-    float: left;
-    margin: 16px 24px 16px 0;
-    border-radius: 50%;
+.icon-container {
+  width: 150px;
+  margin-left: 30px;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.email-dropdown-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
-    background-image: url("icons/logo.jpeg");
+  width: 45px;
+  height: 45px;
+  background-size: cover;
+  background-image: url("icons/logo.svg");
 }
-
+.email-dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
 .icon-user {
-    background-image: url("icons/user.png");
-    float: right;
+  margin-right: 10px;
+  background-image: url("icons/user.png");
+  width: 32px;
+  height: 32px;
+  background-size: cover;
+  border-radius: 10%;
 }
 
 .admin-logo {
-    float: right;
-    margin: 16px 0 16px 24px;
+  float: right;
+  margin: 16px 0 16px 24px;
 }
 
 .site-layout-background {
-    background: #fff;
+  background: #fff;
 }
