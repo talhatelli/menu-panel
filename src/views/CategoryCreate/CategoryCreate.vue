@@ -23,7 +23,7 @@ import {ref, onMounted} from "vue"
 import {message} from "ant-design-vue"
 import {reactive, defineComponent} from "vue"
 import {Form} from "ant-design-vue"
-import {category} from "@/stores/categoryListStore"
+import {categoryStore} from "@/stores/categoryStore"
 
 import "./style.css"
 
@@ -33,7 +33,7 @@ export default defineComponent({
   name: "categories-create",
 
   setup() {
-    const create = category()
+    const create = categoryStore()
 
     const modelRef = reactive({
       name: ""
