@@ -22,7 +22,7 @@
         <a-switch checked-children="✓" un-checked-children="X" v-model:checked="record.status" />
       </template>
       <template v-else-if="column.key === 'actions'">
-        <a href="url">{{ record.actions }}</a>
+        <a :href="'/menu-items/' + record.id">{{ record.actions }}</a>
       </template>
     </template>
   </a-table>
@@ -55,6 +55,7 @@ export default defineComponent({
       const items: items[] = store.getMenuItem
       data.value = items.map(item => {
         return {
+          id: item._id,
           name: item.name,
           address: item.description,
           price: item.price,
@@ -65,6 +66,7 @@ export default defineComponent({
           imageUrl: item.imageUrl
         }
       })
+      console.log(data.value)
     })
 
     const columns = [
