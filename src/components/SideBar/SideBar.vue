@@ -31,6 +31,11 @@
             <RouterLink to="/categories">List</RouterLink>
           </nav>
         </a-menu-item>
+        <a-menu-item key="categories-create">
+          <nav>
+            <RouterLink to="/categories/create">Create</RouterLink>
+          </nav>
+        </a-menu-item>
       </a-sub-menu>
     </a-menu>
   </a-layout-sider>

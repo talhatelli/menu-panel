@@ -19,6 +19,14 @@ export const categoryStore = defineStore("categoryStore", {
                 this.categories = data
             }
             catch (error) {
+                message.error('Data Baseye Not Connected');
+            }
+        },
+        async newCategory(formData: any) {
+            try {
+                await axios.post(ENDPOINTS.categories, formData).then(()=>
+                message.success("Added Successfully"));
+            } catch (error) {
                 message.error('Database Not Connected');
             }
         }
