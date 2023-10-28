@@ -1,5 +1,5 @@
 <template>
-  <a-layout>
+  <a-layout style="max-height: 100vh">
     <HeaderBar />
     <a-layout style="height: 100vh; background: #ffffff">
       <SideBar />
@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue"
+import {defineComponent, ref} from "vue"
 import HeaderBar from "./components/HeaderBar/HeaderBar.vue"
 import SideBar from "./components/SideBar/SideBar.vue"
 
