@@ -8,6 +8,7 @@ export const menuItemStore = defineStore("menuItemStore", {
   state: () => ({
     menuItems: [],
     menuItemDetail:[],
+    menuItemPrice:[],
   }),
   getters: {
     getMenuItem(state) {
@@ -15,6 +16,9 @@ export const menuItemStore = defineStore("menuItemStore", {
     },
     getMenuItemDetail(state) {
       return state.menuItemDetail
+    },
+    getMenuItemPrice(state) {
+      return state.menuItemPrice
     },
   },
   actions: {
@@ -42,19 +46,22 @@ export const menuItemStore = defineStore("menuItemStore", {
       }
     },
     async fetchMenuItemDetail(itemId: any){
-      try {
         const { data } = await axios.get(`${ENDPOINTS.menuItems}/${itemId}`);
         this.menuItemDetail = data
+    },
+    async fetchMenuItemPrice(itemId: any){
+        const { data } = await axios.get(`${ENDPOINTS.menuItems}/${itemId}/price-history`);
+        this.menuItemPrice = data
+    }, 
+    async deleteMenuItem(itemId: any){
+      try {
+        const response = await axios.delete(`${ENDPOINTS.menuItems}/${itemId}`);
+        message.error(response.data.message);
       } 
       catch (error: any) {
-        if (error.response && error.response.data && error.response.data.errors) {
-          const errorMessages = error.response.data.errors;
-          const errorMessageString = errorMessages.join(', ').toLowerCase();
-          message.error(errorMessageString);
-        } else {
-          message.error('Database Not Connected');
-        }
+        message.error('Database Not Connected');
       }
     }
+    
   },
 })

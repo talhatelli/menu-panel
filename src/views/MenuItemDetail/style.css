@@ -48,7 +48,7 @@
     .footer {
       position: absolute;
       bottom: 0;
-      left: 0;
+      left: 0; 
       width: 100%;
       .line {
         height: 1px;
@@ -86,4 +86,36 @@
         }
       }
     }
+    .popconfirm-delete{
+      position: absolute; 
+      right: 5%;
+      .button{
+        background-color: #1c68b9; 
+        color: white; 
+        border-radius: 10px; 
+        width: 100px; 
+        height: 40px;
+      }
+    }
+    .popconfirm-edit{
+      position: absolute; 
+      right: 5%; 
+      top: 130px;
+      .button{
+        background-color: #b91a1c; 
+        color: white; 
+        border-radius: 10px; 
+        width: 100px; 
+        height: 40px;
+      }     
+    }
+    .table-container {
+      position: absolute;
+      bottom: -150px;
+      left: 0; 
+      .table{
+        color: #3098fe
+      } 
+    }
   }
+ 

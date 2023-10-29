@@ -66,7 +66,6 @@ export default defineComponent({
           imageUrl: item.imageUrl
         }
       })
-      console.log(data.value)
     })
 
     const columns = [
