@@ -96,10 +96,9 @@ export default defineComponent({
         }
       ],
       price: [
-        {min: 1, type: "number", message: "It should be positive"},
         {
           required: true,
-          message: "Please enter the price of the product."
+          message: "Please enter the price of the product and it should be positive"
         }
       ]
     })
