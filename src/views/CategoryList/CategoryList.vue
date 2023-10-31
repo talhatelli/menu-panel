@@ -17,7 +17,7 @@
         </a-timeline-item>
       </template>
       <template v-else-if="column.key === 'actions'">
-        <a href="url">{{ record.actions }}</a>
+        <a :href="'/categories/' + record.id + '/items'">{{ record.actions }}</a>
       </template>
     </template>
   </a-table>
@@ -34,17 +34,13 @@ export default defineComponent({
     const store = categoryStore()
     const data = ref([])
     const formatDate = useDateOptions
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    interface Item {
-      name: string
-      createdAt: string
-      updatedAt: string
-    }
+
     onMounted(async () => {
       await store.fetchCategories()
       const items: items[] = store.getCategories
       data.value = items.map(item => {
         return {
+          id: item._id,
           name: item.name,
           createdAt: item.createdAt,
           updatedAt: item.updatedAt,

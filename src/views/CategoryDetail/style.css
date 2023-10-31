@@ -1,0 +1,30 @@
+.table-container {
+    position: relative;
+    margin-top: 100px; 
+  }
+  
+  .delete{
+    top: -90px;
+    position: absolute; 
+    right: 5%;
+    .button{
+      background-color: #1c68b9; 
+      color: white; 
+      border-radius: 10px; 
+      width: 100px; 
+      height: 40px;
+    }
+  }
+  .edit{
+    top: -46px;
+    position: absolute; 
+    right: 5%; 
+    .button{
+      background-color: #b91a1c; 
+      color: white; 
+      border-radius: 10px; 
+      width: 100px; 
+      height: 40px;
+    }     
+  }
+  
