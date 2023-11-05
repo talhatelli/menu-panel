@@ -12,13 +12,13 @@
       <a-button class="button">Edit</a-button>
     </div>
     <div class="menu-item-layoute" v-if="data.name">
-      <a-image style="border-radius: 3%; width: 200px; height: 150px" :src="data.imageUrl" />
+      <a-image class="img" :src="data.imageUrl" />
       <div class="menu-item-info">
-        <a-typography-title style="color: #6f6f6f" :level="2">{{ data.name }}</a-typography-title>
+        <a-typography-title class="title" :level="2">{{ data.name }}</a-typography-title>
         <a-typography-paragraph class="line" copyable>
           {{ data.description }}
         </a-typography-paragraph>
-        <div class="line" copyable>
+        <div class="line">
           {{ data.price }}
         </div>
       </div>
@@ -120,31 +120,15 @@ export default defineComponent({
       const itemId = route.params.id
       await store.fetchMenuItemDetail(itemId)
       await store.fetchMenuItemPrice(itemId)
+      const menuItemDetail = store.getMenuItemDetail
+      const menuItemPrice = store.getMenuItemPrice
 
-      const item = store.getMenuItemDetail
-      if (item) {
-        data.value = {
-          name: item.name,
-          description: item.description,
-          price: item.price,
-          createdAt: item.createdAt,
-          updatedAt: item.updatedAt,
-          imageUrl: item.imageUrl,
-          categories: item.categories
-        }
-      }
-      const priceItem: priceItem[] = store.getMenuItemPrice
-      dataPrice.value = priceItem.map(priceItem => {
-        return {
-          price: priceItem.price,
-          updatedAt: priceItem.updatedAt
-        }
-      })
+      data.value = menuItemDetail
+      dataPrice.value = menuItemPrice
     })
-
     return {
       data,
-      formatDate,
+      formatDate: useDateOptions,
       columns: columns.value,
       dataPrice,
       handleDelete
