@@ -1,5 +1,5 @@
 <template>
-  <a-table class="table" :columns="columns" :data-source="data">
+  <a-table :columns="columns" :data-source="data">
     <template #bodyCell="{column, record}">
       <template v-if="column.key === 'name'"> </template>
       <template v-else-if="column.key === 'createdAt'">
@@ -17,7 +17,13 @@
         </a-timeline-item>
       </template>
       <template v-else-if="column.key === 'actions'">
-        <a :href="'/categories/' + record.id + '/items'">{{ record.actions }}</a>
+        <div>
+          <a :href="'/categories/' + record.id + '/items'">Detail </a>
+          <RightSquareOutlined style="color: #3098fe" />
+          <span> |</span>
+          <a :href="'/categories/' + record.id + '/items/edit'"> Edit </a>
+          <EditOutlined style="color: #dbb12f" />
+        </div>
       </template>
     </template>
   </a-table>
@@ -25,11 +31,16 @@
 
 <script lang="ts">
 import {defineComponent, onMounted, ref} from "vue"
+import {RightSquareOutlined, EditOutlined} from "@ant-design/icons-vue"
 import {categoryStore} from "@/stores/categoryStore"
 import {useDateOptions} from "@/utils"
 import "./style.css"
 
 export default defineComponent({
+  components: {
+    RightSquareOutlined,
+    EditOutlined
+  },
   setup() {
     const store = categoryStore()
     const data = ref([])

@@ -85,9 +85,9 @@ export default defineComponent({
           required: true,
           message: "Please enter the name of the product."
         },
-        {min: 3, max: 5, message: "Length should be 3 to 250"}
+        {min: 3, max: 250, message: "Length should be 3 to 250"}
       ],
-      imageUrl: [{type: "url", message: "Please enter a valid URL"}],
+      imageUrl: [{type: "url", required: true, message: "Please enter a valid URL"}],
 
       categories: [
         {
@@ -96,10 +96,9 @@ export default defineComponent({
         }
       ],
       price: [
-        {min: 1, type: "number", message: "It should be positive"},
         {
           required: true,
-          message: "Please enter the price of the product."
+          message: "Please enter the price of the product and it should be positive"
         }
       ]
     })

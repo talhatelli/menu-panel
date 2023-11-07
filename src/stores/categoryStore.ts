@@ -26,19 +26,19 @@ export const categoryStore = defineStore("categoryStore", {
                 message.error('Data Baseye Not Connected');
             }
         },
-        async newCategory(formData: any) {
+        async newCategory(formData: object) {
             try {
-                await axios.post(ENDPOINTS.categories, formData).then(()=>
-                message.success("Added Successfully"));
+                await axios.post(ENDPOINTS.categories, formData)
+                message.success("Added Successfully")
             } catch (error) {
                 message.error('Database Not Connected');
             }
         },
-        async fetchCategoryDetail(itemId: any){
+        async fetchCategoryDetail(itemId: number){
             const { data } = await axios.get(`${ENDPOINTS.categories}/${itemId}/items`);
             this.categoryDetail = data
         }, 
-        async deleteCategoryItem(itemId: any){
+        async deleteCategoryItem(itemId: number){
             try {
               const response = await axios.delete(`${ENDPOINTS.categories}/${itemId}`);
               message.error(response.data.message); 
