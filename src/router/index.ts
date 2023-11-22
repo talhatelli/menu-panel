@@ -10,6 +10,10 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
+      path: '/',
+      redirect: '/menu-items',
+    },
+    {
       path: '/menu-items',
       name: 'menu-items',
       component: MenuItemList

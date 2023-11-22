@@ -103,13 +103,12 @@ export default defineComponent({
       ]
     })
     const {resetFields, validate, validateInfos} = useForm(modelRef, rulesRef)
-    const onSubmit = e => {
+    const onSubmit = async e => {
       e.preventDefault()
-      validate().then(() => {
-        store.newMenuItem(modelRef)
-        resetFields()
-        message.success("Added Successfully")
-      })
+      await validate()
+      store.newMenuItem(modelRef)
+      resetFields()
+      message.success("Added Successfully")
     }
 
     return {

@@ -12,13 +12,13 @@ export const menuItemStore = defineStore("menuItemStore", {
   }),
   getters: {
     getMenuItem(state) {
-      return state.menuItems
+      return [...state.menuItems].reverse();
     },
     getMenuItemDetail(state) {
       return state.menuItemDetail
     },
     getMenuItemPrice(state) {
-      return state.menuItemPrice
+      return [...state.menuItemPrice].reverse();
     },
   },
   actions: {

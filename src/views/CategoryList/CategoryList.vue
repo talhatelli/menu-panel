@@ -4,20 +4,20 @@
       <template v-if="column.key === 'name'"> </template>
       <template v-else-if="column.key === 'createdAt'">
         <a-timeline>
-          <a-timeline-item color="green">
-            Created <br />
-            {{ formatDate(record.createdAt) }}
-          </a-timeline-item>
+          {{ formatDate(record.createdAt) }}
         </a-timeline>
       </template>
       <template v-else-if="column.key === 'updatedAt'">
-        <a-timeline-item>
-          Update<br />
-          {{ formatDate(record.updatedAt) }}
-        </a-timeline-item>
+        {{ formatDate(record.updatedAt) }}
       </template>
       <template v-else-if="column.key === 'actions'">
-        <a href="url">{{ record.actions }}</a>
+        <div>
+          <a :href="'/categories/' + record.id + '/items'">Detail </a>
+          <RightSquareOutlined style="color: #3098fe" />
+          <span> |</span>
+          <a :href="'/categories/' + record.id + '/items/edit'"> Edit </a>
+          <EditOutlined style="color: #dbb12f" />
+        </div>
       </template>
     </template>
   </a-table>
@@ -26,10 +26,15 @@
 <script lang="ts">
 import {defineComponent, onMounted, ref} from "vue"
 import {categoryStore} from "@/stores/categoryStore"
+import {RightSquareOutlined, EditOutlined} from "@ant-design/icons-vue"
 import {useDateOptions} from "@/utils"
 import "./style.css"
 
 export default defineComponent({
+  components: {
+    RightSquareOutlined,
+    EditOutlined
+  },
   setup() {
     const store = categoryStore()
     const data = ref([])

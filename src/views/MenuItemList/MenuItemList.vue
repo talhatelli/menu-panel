@@ -2,7 +2,13 @@
   <a-table class="table" :columns="columns" :data-source="data">
     <template #bodyCell="{column, record}">
       <template v-if="column.key === 'imageUrl'">
-        <img :src="record.imageUrl" class="table-image" />
+        <img
+          class="table-image"
+          :src="record.imageUrl"
+          @error="handleImageError(record.id)"
+          v-if="!imageErrors.includes(record.id)"
+        />
+        <img class="table-image" src="/src/assets/icons/no-picture-taking.png" v-if="imageErrors.includes(record.id)" />
       </template>
       <template v-else-if="column.key === 'name'"> </template>
       <template v-else-if="column.key === 'price'"> </template>
@@ -19,7 +25,20 @@
         </a-timeline>
       </template>
       <template v-else-if="column.key === 'status'">
-        <a-switch checked-children="✓" un-checked-children="X" v-model:checked="record.status" />
+        <a-popconfirm
+          title="Are you sure you enabled or disabled it?"
+          ok-text="Yes"
+          cancel-text="No"
+          @confirm="confirm(record)"
+          @cancel="cancel(record)"
+        >
+          <a-switch
+            checked-children="✓"
+            un-checked-children="X"
+            :checked="switchStatus[record.id]"
+            @change="handleChangeOnConfirm(record)"
+          />
+        </a-popconfirm>
       </template>
       <template v-else-if="column.key === 'actions'">
         <a :href="'/menu-items/' + record.id">{{ record.actions }}</a>
@@ -38,8 +57,29 @@ export default defineComponent({
   setup() {
     const store = menuItemStore()
     const data = ref([])
+    const switchStatus = ref([false])
     const formatDate = useDateOptions
+    let confirmTriggered = false
+    const imageErrors = ref([])
 
+    const handleImageError = recordId => {
+      console.log(recordId)
+      imageErrors.value.push(recordId)
+    }
+    const confirm = (record: any) => {
+      switchStatus.value[record.id] = !switchStatus.value[record.id]
+      confirmTriggered = true
+    }
+
+    const cancel = () => {
+      confirmTriggered = false
+    }
+
+    const handleChangeOnConfirm = () => {
+      if (confirmTriggered) {
+        confirmTriggered = false
+      }
+    }
     interface Items {
       name: string
       description: string
@@ -110,7 +150,13 @@ export default defineComponent({
       columns,
       data,
       formatDate,
-      useDateOptions
+      useDateOptions,
+      confirm,
+      cancel,
+      switchStatus,
+      handleChangeOnConfirm,
+      imageErrors,
+      handleImageError
     }
   }
 })

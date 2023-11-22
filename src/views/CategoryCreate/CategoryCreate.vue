@@ -48,12 +48,11 @@ export default defineComponent({
       ]
     })
     const {resetFields, validate, validateInfos} = useForm(modelRef, rulesRef)
-    const onSubmit = e => {
+    const onSubmit = async e => {
       e.preventDefault()
-      validate().then(() => {
-        create.newCategory(modelRef)
-        resetFields()
-      })
+      await validate()
+      create.newCategory(modelRef)
+      resetFields()
     }
     return {
       labelCol: {span: 24},

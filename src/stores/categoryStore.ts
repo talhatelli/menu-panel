@@ -9,7 +9,7 @@ export const categoryStore = defineStore("categoryStore", {
     }),
     getters: {
         getCategories(state) {
-            return state.categories
+          return [...state.categories].reverse();
         }
     },
     actions: {
