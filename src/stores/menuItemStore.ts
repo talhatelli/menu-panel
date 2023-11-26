@@ -3,12 +3,38 @@ import axios from 'axios'
 import { message } from 'ant-design-vue';
 import  ENDPOINTS  from './endpoints';
 
-
+interface Category {
+  _id: string;
+  name: string;
+}
+interface MenuItemDetail {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+  categories: Category[];
+}
+interface PriceHistoryItem {
+  _id: string;
+  price: number;
+}
+interface MenuItem {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+}
 export const menuItemStore = defineStore("menuItemStore", {
   state: () => ({
-    menuItems: [],
-    menuItemDetail:[],
-    menuItemPrice:[],
+    menuItems: [] as MenuItem[],
+    menuItemDetail: {} as MenuItemDetail,
+    menuItemPrice: [] as PriceHistoryItem[],
   }),
   getters: {
     getMenuItem(state) {
@@ -24,8 +50,8 @@ export const menuItemStore = defineStore("menuItemStore", {
   actions: {
     async fetchMenuItem() {
       try {
-        const {data}= await axios.get(ENDPOINTS.menuItems)
-        this.menuItems = data
+        const { data } = await axios.get<MenuItem[]>(ENDPOINTS.menuItems);
+        this.menuItems = data;
       }
       catch (error) {
         message.error('Data Baseye Not Connected');
@@ -47,8 +73,8 @@ export const menuItemStore = defineStore("menuItemStore", {
     },
     async fetchMenuItemDetail(itemId: number){
       try {
-        const { data } = await axios.get(`${ENDPOINTS.menuItems}/${itemId}`);
-        this.menuItemDetail = data
+        const { data } = await axios.get<MenuItemDetail>(`${ENDPOINTS.menuItems}/${itemId}`);
+        this.menuItemDetail = data;
       }
       catch (error) {
         message.error('Data Baseye Not Connected');
@@ -56,8 +82,8 @@ export const menuItemStore = defineStore("menuItemStore", {
     },
     async fetchMenuItemPrice(itemId: number){
       try {
-        const { data } = await axios.get(`${ENDPOINTS.menuItems}/${itemId}/price-history`);
-        this.menuItemPrice = data
+        const { data } = await axios.get<PriceHistoryItem[]>(`${ENDPOINTS.menuItems}/${itemId}/price-history`);
+        this.menuItemPrice = data;
       }
       catch (error) {
         message.error('Data Baseye Not Connected');
