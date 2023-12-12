@@ -1,0 +1,133 @@
+<template>
+  <div class="full-screen-form">
+    <a-card style="width: 100%; height: 100vh">
+      <a-form :label-col="labelCol" :wrapper-col="wrapperCol">
+        <div class="form-infos">
+          <a-form-item label="Name" v-bind="validateInfos.name">
+            <a-input name="company_name" v-model:value="modelRef.name" />
+          </a-form-item>
+          <a-form-item label="Description">
+            <a-input name="description" v-model:value="modelRef.description" />
+          </a-form-item>
+          <a-form-item label="Image Url" v-bind="validateInfos.imageUrl">
+            <a-input name="imageUrl" v-model:value="modelRef.imageUrl" placeholder="https://..." />
+          </a-form-item>
+          <a-form-item label="Categories" v-bind="validateInfos.categories"
+            style="width: 100%; max-height: 300px; overflow-y: auto">
+            <a-select v-model:value="modelRef.categories.name" mode="multiple" placeholder="Select the Category"
+              :options="formattedOptions">
+            </a-select>
+          </a-form-item>
+          <a-form-item label="Price" v-bind="validateInfos.price">
+            <a-input name="price" type="number" v-model:value="modelRef.price" placeholder="100" />
+          </a-form-item>
+        </div>
+        <a-divider orientation="left">
+          <a-form-item :wrapper-col="{ span: 14, offset: 1 }">
+            <a-button type="primary" @click="onSubmit"> Submit </a-button>
+            <a-button style="margin-left: 10px" @click="resetFields"> Clean </a-button>
+          </a-form-item>
+        </a-divider>
+      </a-form>
+    </a-card>
+  </div>
+</template>
+
+<script>
+import { ref, onMounted } from "vue"
+import { message } from "ant-design-vue"
+import { reactive, defineComponent } from "vue"
+import { Form } from "ant-design-vue"
+import { menuItemStore } from "@/stores/menuItemStore"
+import { categoryStore } from "@/stores/categoryStore"
+import { useRoute, useRouter } from "vue-router"
+
+
+import "./style.css"
+
+const useForm = Form.useForm
+
+export default defineComponent({
+  name: "menu-item-form",
+
+  setup() {
+    const categoryList = categoryStore()
+    const store = menuItemStore()
+    const route = useRoute()
+    const router = useRouter()
+    const formattedOptions = ref([])
+    const data = ref([])
+    const formData = ref([])
+    const itemId = route.params.id
+
+    onMounted(async () => {
+      await store.fetchMenuItemDetail(itemId)
+      await categoryList.fetchCategories()
+      const items = categoryList.getCategories
+      const menuItemDetail = store.getMenuItemDetail
+      formData.value = menuItemDetail
+      Object.keys(modelRef).forEach(key => {
+        modelRef[key] = menuItemDetail[key] || "";
+      });
+      modelRef.categories.name = modelRef.categories.map(category => category.name);
+      data.value = items.map(item => {
+        return {
+          label: item.name,
+          value: item._id
+        }
+      })
+      formattedOptions.value = data.value
+    })
+
+    const modelRef = reactive({
+      name: "",
+      description: "",
+      imageUrl: "",
+      categories: "",
+      price: ""
+    })
+    const rulesRef = reactive({
+      name: [
+        {
+          required: true,
+          message: "Please enter the name of the product."
+        },
+        { min: 3, max: 250, message: "Length should be 3 to 250" }
+      ],
+      imageUrl: [{ type: "url", required: true, message: "Please enter a valid URL" }],
+
+      categories: [
+        {
+          required: true,
+          message: "Please enter the category of the product as id."
+        }
+      ],
+      price: [
+        {
+          required: true,
+          message: "Please enter the price of the product and it should be positive"
+        }
+      ]
+    })
+    const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef)
+    const onSubmit = async e => {
+      e.preventDefault()
+      await validate()
+      await store.updateMenuItem(modelRef, itemId)
+      router.push("/menu-items")
+    }
+
+    return {
+      labelCol: { span: 24 },
+      wrapperCol: { span: 23 },
+      validate,
+      validateInfos,
+      resetFields,
+      modelRef,
+      onSubmit,
+      formattedOptions,
+      data,
+    }
+  }
+})
+</script>

@@ -9,7 +9,7 @@
       </a-popconfirm>
     </div>
     <div class="popconfirm-edit">
-      <a-button class="button">Edit</a-button>
+      <a-button class="button" :href="'/menu-items/' + data._id + '/edit'">Edit</a-button>
     </div>
     <div class="menu-item-layoute" v-if="data.name">
       <img class="img" :src="data.imageUrl" @error="handleImageError" v-if="!imageError" />
@@ -49,7 +49,7 @@
     </div>
     <div class="table-container">
       <a-table style="color: #3098fe" :columns="columns" :data-source="dataPrice">
-        <template #bodyCell="{column, record}">
+        <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'price'"> </template>
           <template v-else-if="column.key === 'date'">
             <p>{{ formatDate(record.updatedAt) }}</p>
@@ -61,11 +61,11 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, ref} from "vue"
-import {menuItemStore} from "@/stores/menuItemStore"
-import {useRoute, useRouter} from "vue-router"
-import {SettingOutlined} from "@ant-design/icons-vue"
-import {useDateOptions} from "@/utils"
+import { defineComponent, onMounted, ref } from "vue"
+import { menuItemStore } from "@/stores/menuItemStore"
+import { useRoute, useRouter } from "vue-router"
+import { SettingOutlined } from "@ant-design/icons-vue"
+import { useDateOptions } from "@/utils"
 import "./style.css"
 
 export default defineComponent({

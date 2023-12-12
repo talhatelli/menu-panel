@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { message } from 'ant-design-vue';
-import  ENDPOINTS  from './endpoints';
+import ENDPOINTS from './endpoints';
 
 interface Category {
   _id: string;
@@ -60,7 +60,7 @@ export const menuItemStore = defineStore("menuItemStore", {
     async newMenuItem(formData: object) {
       try {
         const { data } = await axios.post(ENDPOINTS.menuItems, formData);
-      } 
+      }
       catch (error: any) {
         if (error.response && error.response.data && error.response.data.errors) {
           const errorMessages = error.response.data.errors;
@@ -71,7 +71,7 @@ export const menuItemStore = defineStore("menuItemStore", {
         }
       }
     },
-    async fetchMenuItemDetail(itemId: number){
+    async fetchMenuItemDetail(itemId: number) {
       try {
         const { data } = await axios.get<MenuItemDetail>(`${ENDPOINTS.menuItems}/${itemId}`);
         this.menuItemDetail = data;
@@ -80,23 +80,35 @@ export const menuItemStore = defineStore("menuItemStore", {
         message.error('Data Baseye Not Connected');
       }
     },
-    async fetchMenuItemPrice(itemId: number){
+    async fetchMenuItemPrice(itemId: number) {
       try {
         const { data } = await axios.get<PriceHistoryItem[]>(`${ENDPOINTS.menuItems}/${itemId}/price-history`);
+        console.log('%cmenuItemStore.ts line:86 data', 'color: #007acc;', data);
         this.menuItemPrice = data;
       }
       catch (error) {
         message.error('Data Baseye Not Connected');
       }
-    }, 
-    async deleteMenuItem(itemId: number){
-        const response = await axios.delete(`${ENDPOINTS.menuItems}/${itemId}`);
-        if (response) {
-          message.error(response.data.message);
-        } else {
-          message.error('Database Not Connected');
+    },
+    async deleteMenuItem(itemId: number) {
+      const response = await axios.delete(`${ENDPOINTS.menuItems}/${itemId}`);
+      if (response) {
+        message.error(response.data.message);
+      } else {
+        message.error('Database Not Connected');
+      }
+    },
+    async updateMenuItem(formData: object, itemId: number) {
+      try {
+        const { data } = await axios.put(`${ENDPOINTS.menuItems}/${itemId}`, formData);
+        if (data) {
+          message.success('Update Successful');
         }
-    }
-    
+      }
+      catch (error: any) {
+        message.error('Database Not Connected');
+      }
+    },
+
   },
 })
