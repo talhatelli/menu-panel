@@ -1,6 +1,6 @@
 <template>
   <a-table class="table" :columns="columns" :data-source="data">
-    <template #bodyCell="{column, record}">
+    <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'"> </template>
       <template v-else-if="column.key === 'createdAt'">
         <a-timeline>
@@ -15,7 +15,7 @@
           <a :href="'/categories/' + record.id + '/items'">Detail </a>
           <RightSquareOutlined style="color: #3098fe" />
           <span> |</span>
-          <a :href="'/categories/' + record.id + '/items/edit'"> Edit </a>
+          <a :href="'/categories/' + record.id + '/edit'"> Edit </a>
           <EditOutlined style="color: #dbb12f" />
         </div>
       </template>
@@ -24,10 +24,10 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, ref} from "vue"
-import {categoryStore} from "@/stores/categoryStore"
-import {RightSquareOutlined, EditOutlined} from "@ant-design/icons-vue"
-import {useDateOptions} from "@/utils"
+import { defineComponent, onMounted, ref } from "vue"
+import { categoryStore } from "@/stores/categoryStore"
+import { RightSquareOutlined, EditOutlined } from "@ant-design/icons-vue"
+import { useDateOptions } from "@/utils"
 import "./style.css"
 
 export default defineComponent({
@@ -50,6 +50,7 @@ export default defineComponent({
       const items: items[] = store.getCategories
       data.value = items.map(item => {
         return {
+          id: item._id,
           name: item.name,
           createdAt: item.createdAt,
           updatedAt: item.updatedAt,
@@ -62,7 +63,7 @@ export default defineComponent({
         title: "Name",
         dataIndex: "name",
         key: "name",
-        scopedSlots: {customRender: "nameSlot"}
+        scopedSlots: { customRender: "nameSlot" }
       },
       {
         title: "Create At",

@@ -6,6 +6,8 @@ import MenuItemForm from '@/views/MenuItemForm/MenuItemForm.vue'
 import CategoryCreate from '@/views/CategoryCreate/CategoryCreate.vue';
 import MenuItemDetail from '@/views/MenuItemDetail/MenuItemDetail.vue';
 import MenuItemEdit from '@/views/MenuItemEdit/MenuItemEdit.vue';
+import CategoryEdit from '@/views/CategoryEdit/CategoryEdit.vue';
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -43,6 +45,11 @@ const router = createRouter({
       path: '/menu-items/:id/edit',
       name: 'menu-item-edit',
       component: MenuItemEdit
+    },
+    {
+      path: '/categories/:id/edit',
+      name: 'categories-edit',
+      component: CategoryEdit
     },
   ]
 })
