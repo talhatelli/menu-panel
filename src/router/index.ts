@@ -7,7 +7,7 @@ import CategoryCreate from '@/views/CategoryCreate/CategoryCreate.vue';
 import MenuItemDetail from '@/views/MenuItemDetail/MenuItemDetail.vue';
 import MenuItemEdit from '@/views/MenuItemEdit/MenuItemEdit.vue';
 import CategoryEdit from '@/views/CategoryEdit/CategoryEdit.vue';
-
+import CategoryDetail from '@/views/CategoryDetail/CategoryDetail.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -51,9 +51,13 @@ const router = createRouter({
       name: 'categories-edit',
       component: CategoryEdit
     },
+    {
+      path: '/categories/:id/items',
+      name: 'category-detail',
+      component:  CategoryDetail
+    },
   ]
-})
-
+})      
 export default router
 
 

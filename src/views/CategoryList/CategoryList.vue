@@ -24,10 +24,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue"
-import { categoryStore } from "@/stores/categoryStore"
-import { RightSquareOutlined, EditOutlined } from "@ant-design/icons-vue"
-import { useDateOptions } from "@/utils"
+import {defineComponent, onMounted, ref} from "vue"
+import {RightSquareOutlined, EditOutlined} from "@ant-design/icons-vue"
+import {categoryStore} from "@/stores/categoryStore"
+import {useDateOptions} from "@/utils"
 import "./style.css"
 
 export default defineComponent({
@@ -39,12 +39,7 @@ export default defineComponent({
     const store = categoryStore()
     const data = ref([])
     const formatDate = useDateOptions
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    interface Item {
-      name: string
-      createdAt: string
-      updatedAt: string
-    }
+
     onMounted(async () => {
       await store.fetchCategories()
       const items: items[] = store.getCategories
