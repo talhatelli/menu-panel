@@ -1,27 +1,21 @@
 <template>
-  <a-table :columns="columns" :data-source="data">
-    <template #bodyCell="{column, record}">
+  <a-table class="table" :columns="columns" :data-source="data">
+    <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'"> </template>
       <template v-else-if="column.key === 'createdAt'">
         <a-timeline>
-          <a-timeline-item color="green">
-            Created <br />
-            {{ formatDate(record.createdAt) }}
-          </a-timeline-item>
+          {{ formatDate(record.createdAt) }}
         </a-timeline>
       </template>
       <template v-else-if="column.key === 'updatedAt'">
-        <a-timeline-item>
-          Update<br />
-          {{ formatDate(record.updatedAt) }}
-        </a-timeline-item>
+        {{ formatDate(record.updatedAt) }}
       </template>
       <template v-else-if="column.key === 'actions'">
         <div>
           <a :href="'/categories/' + record.id + '/items'">Detail </a>
           <RightSquareOutlined style="color: #3098fe" />
           <span> |</span>
-          <a :href="'/categories/' + record.id + '/items/edit'"> Edit </a>
+          <a :href="'/categories/' + record.id + '/edit'"> Edit </a>
           <EditOutlined style="color: #dbb12f" />
         </div>
       </template>
@@ -64,7 +58,7 @@ export default defineComponent({
         title: "Name",
         dataIndex: "name",
         key: "name",
-        scopedSlots: {customRender: "nameSlot"}
+        scopedSlots: { customRender: "nameSlot" }
       },
       {
         title: "Create At",

@@ -12,8 +12,8 @@
       
       .img{
         border-radius: 3%; 
-        width: 200px; 
-        height: 150px
+        width: 180px; 
+        height: 160px
       }
       .menu-item-info {
         margin-left: 20px;
@@ -119,10 +119,7 @@
     }
     .table-container {
       position: absolute;
-      bottom: -150px;
+      bottom: -28%;
       left: 0; 
-      .table{
-        color: #3098fe
-      } 
     }
   }

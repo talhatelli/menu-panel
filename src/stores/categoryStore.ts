@@ -1,17 +1,21 @@
 import { defineStore } from 'pinia'
 import axios from 'axios';
 import { message } from 'ant-design-vue';
-import  ENDPOINTS  from './endpoints';
+import ENDPOINTS from './endpoints';
 
 export const categoryStore = defineStore("categoryStore", {
     state: () => ({
         categories: [],
         categoryDetail:[]
+        categoryItem: {},
     }),
     getters: {
         getCategories(state) {
-            return state.categories
+            return [...state.categories].reverse();
         },
+        getCategoryItem(state) {
+            return state.categoryItem
+
         getCategoryDetail(state) {
             return state.categoryDetail
         }
@@ -19,7 +23,7 @@ export const categoryStore = defineStore("categoryStore", {
     actions: {
         async fetchCategories() {
             try {
-                const {data}= await axios.get(ENDPOINTS.categories)
+                const { data } = await axios.get(ENDPOINTS.categories)
                 this.categories = data
             }
             catch (error) {
@@ -33,6 +37,13 @@ export const categoryStore = defineStore("categoryStore", {
             } catch (error) {
                 message.error('Database Not Connected');
             }
+        },
+        async updateCategory(payload: object, itemId: number) {
+            await axios.put(`${ENDPOINTS.categories}/${itemId}`, payload);
+        },
+        async fetchCategoryItem(itemId: number) {
+            const { data } = await axios.get(`${ENDPOINTS.categories}/${itemId}`);
+            this.categoryItem = data
         },
         async fetchCategoryDetail(itemId: number){
             const { data } = await axios.get(`${ENDPOINTS.categories}/${itemId}/items`);

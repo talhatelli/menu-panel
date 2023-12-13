@@ -9,13 +9,14 @@
       </a-popconfirm>
     </div>
     <div class="popconfirm-edit">
-      <a-button class="button">Edit</a-button>
+      <a-button class="button" :href="'/menu-items/' + data._id + '/edit'">Edit</a-button>
     </div>
     <div class="menu-item-layoute" v-if="data.name">
-      <a-image class="img" :src="data.imageUrl" />
+      <img class="img" :src="data.imageUrl" @error="handleImageError" v-if="!imageError" />
+      <img class="img" src="/src/assets/icons/no-picture-taking.png" v-if="imageError" />
       <div class="menu-item-info">
         <a-typography-title class="title" :level="2">{{ data.name }}</a-typography-title>
-        <a-typography-paragraph class="line" copyable>
+        <a-typography-paragraph class="line" copyable v-if="data.description.length > 0">
           {{ data.description }}
         </a-typography-paragraph>
         <div class="line">
@@ -48,14 +49,10 @@
     </div>
     <div class="table-container">
       <a-table style="color: #3098fe" :columns="columns" :data-source="dataPrice">
-        <template #bodyCell="{column, record}">
+        <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'price'"> </template>
           <template v-else-if="column.key === 'date'">
-            <a-timeline>
-              <a-timeline-item color="green">
-                <p class="table">{{ formatDate(record.updatedAt) }}</p>
-              </a-timeline-item>
-            </a-timeline>
+            <p>{{ formatDate(record.updatedAt) }}</p>
           </template>
         </template>
       </a-table>
@@ -64,11 +61,11 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, ref} from "vue"
-import {menuItemStore} from "@/stores/menuItemStore"
-import {useRoute, useRouter} from "vue-router"
-import {SettingOutlined} from "@ant-design/icons-vue"
-import {useDateOptions} from "@/utils"
+import { defineComponent, onMounted, ref } from "vue"
+import { menuItemStore } from "@/stores/menuItemStore"
+import { useRoute, useRouter } from "vue-router"
+import { SettingOutlined } from "@ant-design/icons-vue"
+import { useDateOptions } from "@/utils"
 import "./style.css"
 
 export default defineComponent({
@@ -80,6 +77,11 @@ export default defineComponent({
     const router = useRouter()
     const store = menuItemStore()
     const formatDate = useDateOptions
+    const imageError = ref(false)
+
+    const handleImageError = () => {
+      imageError.value = true
+    }
     const data = ref({
       name: "",
       description: "",
@@ -109,11 +111,10 @@ export default defineComponent({
         ellipsis: true
       }
     ])
-    const handleDelete = () => {
+    const handleDelete = async () => {
       const itemId = route.params.id
-      store.deleteMenuItem(itemId).then(() => {
-        router.push("/menu-items")
-      })
+      await store.deleteMenuItem(itemId)
+      router.push("/menu-items")
     }
 
     onMounted(async () => {
@@ -131,7 +132,9 @@ export default defineComponent({
       formatDate: useDateOptions,
       columns: columns.value,
       dataPrice,
-      handleDelete
+      handleDelete,
+      imageError,
+      handleImageError
     }
   }
 })
