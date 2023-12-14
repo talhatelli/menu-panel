@@ -6,7 +6,7 @@ import ENDPOINTS from './endpoints';
 export const categoryStore = defineStore("categoryStore", {
     state: () => ({
         categories: [],
-        categoryDetail:[]
+        categoryDetail: [],
         categoryItem: {},
     }),
     getters: {
@@ -15,7 +15,7 @@ export const categoryStore = defineStore("categoryStore", {
         },
         getCategoryItem(state) {
             return state.categoryItem
-
+        },
         getCategoryDetail(state) {
             return state.categoryDetail
         }
@@ -45,18 +45,18 @@ export const categoryStore = defineStore("categoryStore", {
             const { data } = await axios.get(`${ENDPOINTS.categories}/${itemId}`);
             this.categoryItem = data
         },
-        async fetchCategoryDetail(itemId: number){
+        async fetchCategoryDetail(itemId: number) {
             const { data } = await axios.get(`${ENDPOINTS.categories}/${itemId}/items`);
             this.categoryDetail = data
-        }, 
-        async deleteCategoryItem(itemId: number){
+        },
+        async deleteCategoryItem(itemId: number) {
             try {
-              const response = await axios.delete(`${ENDPOINTS.categories}/${itemId}`);
-              message.error(response.data.message); 
-            } 
-            catch (error: any) {
-              message.error(error.response.data.error);
+                const response = await axios.delete(`${ENDPOINTS.categories}/${itemId}`);
+                message.error(response.data.message);
             }
-          }
+            catch (error: any) {
+                message.error(error.response.data.error);
+            }
+        }
     },
 })

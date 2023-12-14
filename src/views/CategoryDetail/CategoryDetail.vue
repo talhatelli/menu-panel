@@ -9,10 +9,10 @@
       </a-popconfirm>
     </div>
     <div class="edit">
-      <a-button class="button">Edit</a-button>
+      <a-button class="button" :href="'/categories/' + itemId + '/edit'">Edit</a-button>
     </div>
     <a-table class="table" :columns="columns" :data-source="data">
-      <template #bodyCell="{column, record}">
+      <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'imageUrl'">
           <img :src="record.imageUrl" class="table-image" />
         </template>
@@ -22,8 +22,7 @@
           <a-timeline>
             <a-timeline-item color="green">
               Created <br />
-              {{ formatDate(record.date) }}</a-timeline-item
-            >
+              {{ formatDate(record.date) }}</a-timeline-item>
             <a-timeline-item>
               Update<br />
               <p>{{ formatDate(record.updatedAt) }}</p>
@@ -42,10 +41,10 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, ref} from "vue"
-import {categoryStore} from "@/stores/categoryStore"
-import {useRoute, useRouter} from "vue-router"
-import {useDateOptions} from "@/utils"
+import { defineComponent, onMounted, ref } from "vue"
+import { categoryStore } from "@/stores/categoryStore"
+import { useRoute, useRouter } from "vue-router"
+import { useDateOptions } from "@/utils"
 import "./style.css"
 
 export default defineComponent({
@@ -55,6 +54,7 @@ export default defineComponent({
     const store = categoryStore()
     const data = ref([])
     const formatDate = useDateOptions
+    const itemId = route.params.id
 
     interface Items {
       name: string
@@ -65,13 +65,12 @@ export default defineComponent({
       imageUrl: string
     }
     const handleDelete = () => {
-      const itemId = route.params.id
       store.deleteCategoryItem(itemId).then(() => {
         router.push("/categories")
       })
     }
     onMounted(async () => {
-      const itemId = route.params.id
+      console.log('%cCategoryDetail.vue line:59 itemId', 'color: #007acc;', itemId);
       await store.fetchCategoryDetail(itemId)
       const items: items[] = store.getCategoryDetail
 
@@ -94,13 +93,13 @@ export default defineComponent({
       {
         dataIndex: "imageUrl",
         key: "imageUrl",
-        scopedSlots: {customRender: "imageSlot"}
+        scopedSlots: { customRender: "imageSlot" }
       },
       {
         title: "Name",
         dataIndex: "name",
         key: "name",
-        scopedSlots: {customRender: "nameSlot"}
+        scopedSlots: { customRender: "nameSlot" }
       },
       {
         title: "PRICE",
@@ -132,7 +131,8 @@ export default defineComponent({
       columns,
       data,
       formatDate,
-      handleDelete
+      handleDelete,
+      itemId
     }
   }
 })
