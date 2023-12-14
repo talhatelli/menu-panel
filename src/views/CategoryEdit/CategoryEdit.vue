@@ -8,7 +8,7 @@
           </a-form-item>
         </div>
         <a-divider orientation="left">
-          <a-form-item :wrapper-col="{span: 14, offset: 1}">
+          <a-form-item :wrapper-col="{ span: 14, offset: 1 }">
             <a-button type="primary" @click="onSubmit"> Submit </a-button>
             <a-button style="margin-left: 10px" @click="resetFields"> Clean </a-button>
           </a-form-item>
@@ -19,11 +19,10 @@
 </template>
 
 <script>
-import {ref, onMounted} from "vue"
-import {message} from "ant-design-vue"
-import {reactive, defineComponent} from "vue"
-import {Form} from "ant-design-vue"
-import {categoryStore} from "@/stores/categoryStore"
+import { reactive, defineComponent, onMounted } from "vue"
+import { useRoute, useRouter } from "vue-router"
+import { Form } from "ant-design-vue"
+import { categoryStore } from "@/stores/categoryStore"
 
 import "./style.css"
 
@@ -33,7 +32,10 @@ export default defineComponent({
   name: "categories-create",
 
   setup() {
-    const create = categoryStore()
+    const createStore = categoryStore()
+    const route = useRoute()
+    const router = useRouter()
+    const itemId = route.params.id
 
     const modelRef = reactive({
       name: ""
@@ -44,19 +46,26 @@ export default defineComponent({
           required: true,
           message: "Please enter the name of the product."
         },
-        {min: 3, max: 250, message: "Length should be 3 to 250"}
+        { min: 3, max: 250, message: "Length should be 3 to 250" }
       ]
     })
-    const {resetFields, validate, validateInfos} = useForm(modelRef, rulesRef)
+    const { resetFields, validate, validateInfos } = useForm(modelRef, rulesRef)
     const onSubmit = async e => {
       e.preventDefault()
       await validate()
-      create.newCategory(modelRef)
-      resetFields()
+      await createStore.updateCategory(modelRef, itemId)
+      await createStore.fetchCategories()
+      router.push("/categories")
     }
+    onMounted(async () => {
+      await createStore.fetchCategoryItem(itemId)
+      const categoryItem = createStore.getCategoryItem
+      modelRef.name = categoryItem.name
+
+    })
     return {
-      labelCol: {span: 24},
-      wrapperCol: {span: 23},
+      labelCol: { span: 24 },
+      wrapperCol: { span: 23 },
       validate,
       validateInfos,
       resetFields,

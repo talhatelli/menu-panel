@@ -1,23 +1,23 @@
 <template>
   <a-table class="table" :columns="columns" :data-source="data">
-    <template #bodyCell="{column, record}">
+    <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'name'"> </template>
       <template v-else-if="column.key === 'createdAt'">
         <a-timeline>
-          <a-timeline-item color="green">
-            Created <br />
-            {{ formatDate(record.createdAt) }}
-          </a-timeline-item>
+          {{ formatDate(record.createdAt) }}
         </a-timeline>
       </template>
       <template v-else-if="column.key === 'updatedAt'">
-        <a-timeline-item>
-          Update<br />
-          {{ formatDate(record.updatedAt) }}
-        </a-timeline-item>
+        {{ formatDate(record.updatedAt) }}
       </template>
       <template v-else-if="column.key === 'actions'">
-        <a href="url">{{ record.actions }}</a>
+        <div>
+          <a :href="'/categories/' + record.id + '/items'">Detail </a>
+          <RightSquareOutlined style="color: #3098fe" />
+          <span> |</span>
+          <a :href="'/categories/' + record.id + '/edit'"> Edit </a>
+          <EditOutlined style="color: #dbb12f" />
+        </div>
       </template>
     </template>
   </a-table>
@@ -25,26 +25,27 @@
 
 <script lang="ts">
 import {defineComponent, onMounted, ref} from "vue"
+import {RightSquareOutlined, EditOutlined} from "@ant-design/icons-vue"
 import {categoryStore} from "@/stores/categoryStore"
 import {useDateOptions} from "@/utils"
 import "./style.css"
 
 export default defineComponent({
+  components: {
+    RightSquareOutlined,
+    EditOutlined
+  },
   setup() {
     const store = categoryStore()
     const data = ref([])
     const formatDate = useDateOptions
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    interface Item {
-      name: string
-      createdAt: string
-      updatedAt: string
-    }
+
     onMounted(async () => {
       await store.fetchCategories()
       const items: items[] = store.getCategories
       data.value = items.map(item => {
         return {
+          id: item._id,
           name: item.name,
           createdAt: item.createdAt,
           updatedAt: item.updatedAt,
@@ -57,7 +58,7 @@ export default defineComponent({
         title: "Name",
         dataIndex: "name",
         key: "name",
-        scopedSlots: {customRender: "nameSlot"}
+        scopedSlots: { customRender: "nameSlot" }
       },
       {
         title: "Create At",

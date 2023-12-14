@@ -1,0 +1,43 @@
+.table-container {
+  position: relative;
+  margin-top: 100px;
+}
+
+.delete {
+  display: flex;
+  align-items: center;
+  top: -90px;
+  position: absolute;
+  right: 5%;
+
+  .button {
+    background-color: #1c68b9;
+    color: white;
+    border-radius: 10px;
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+  }
+}
+
+.edit {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: -46px;
+  right: 5%;
+
+  .button {
+    border-radius: 10px;
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    /* İhtiyaca bağlı olarak boşluk ekleyebilirsiniz */
+  }
+}

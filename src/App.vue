@@ -1,15 +1,15 @@
 <template>
-  <a-layout>
+  <a-layout style="max-height: 100vh">
     <HeaderBar />
-    <a-layout style="height: 100vh; background: #ffffff">
-      <SideBar />
-      <RouterView />
+    <a-layout>
+      <SideBar style="min-height: 217vh; max-height: 420vh" />
+      <RouterView style="max-height: 217vh" />
     </a-layout>
   </a-layout>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue"
+import {defineComponent, ref} from "vue"
 import HeaderBar from "./components/HeaderBar/HeaderBar.vue"
 import SideBar from "./components/SideBar/SideBar.vue"
 
