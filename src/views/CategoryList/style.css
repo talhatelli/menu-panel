@@ -1,0 +1,12 @@
+.table {
+    height: 100px;
+
+    .table-image {
+        display: block;
+        object-fit: cover;
+        margin: 0 auto;
+        width: 150px;
+        height: 100px;
+        border-radius: 5%;
+    }
+}
