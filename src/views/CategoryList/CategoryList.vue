@@ -12,7 +12,7 @@
       </template>
       <template v-else-if="column.key === 'actions'">
         <div>
-          <a :href="'/categories/' + record.id + '/items'">Detail </a>
+          <a :href="'/categories/' + record.id + '/items/' + record.name">Detail </a>
           <RightSquareOutlined style="color: #3098fe" />
           <span> |</span>
           <a :href="'/categories/' + record.id + '/edit'"> Edit </a>
@@ -24,10 +24,10 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, ref} from "vue"
-import {RightSquareOutlined, EditOutlined} from "@ant-design/icons-vue"
-import {categoryStore} from "@/stores/categoryStore"
-import {useDateOptions} from "@/utils"
+import { defineComponent, onMounted, ref } from "vue"
+import { RightSquareOutlined, EditOutlined } from "@ant-design/icons-vue"
+import { categoryStore } from "@/stores/categoryStore"
+import { useDateOptions } from "@/utils"
 import "./style.css"
 
 export default defineComponent({

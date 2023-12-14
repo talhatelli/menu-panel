@@ -19,7 +19,7 @@
         <a-typography-paragraph class="line" copyable v-if="data.description.length > 0">
           {{ data.description }}
         </a-typography-paragraph>
-        <div class="line">
+        <div class="price-text ">
           {{ data.price }}
         </div>
       </div>
@@ -38,11 +38,12 @@
     <div class="footer">
       <div class="line"></div>
       <p class="categories">Categories</p>
-      <div class="categories-info-background">
+      <div class="categories-info-background" :style="{ width: calculateWidth + 'px' }">
         <SettingOutlined class="setting-outlined" />
         <div class="categories-info">
-          <p class="categories-info-p" v-for="category in data.categories" :key="category.id">
+          <p class="categories-info-p" v-for="(category, index) in data.categories" :key="category.id">
             {{ category.name }}
+            <span v-if="index !== data.categories.length - 1">, </span>
           </p>
         </div>
       </div>
@@ -61,12 +62,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue"
+import { defineComponent, onMounted, ref, computed } from "vue"
 import { menuItemStore } from "@/stores/menuItemStore"
 import { useRoute, useRouter } from "vue-router"
 import { SettingOutlined } from "@ant-design/icons-vue"
 import { useDateOptions } from "@/utils"
 import "./style.css"
+
+const maxWidthPerCharacter = 20; // Her karakter için belirli bir genişlik
 
 export default defineComponent({
   components: {
@@ -78,10 +81,6 @@ export default defineComponent({
     const store = menuItemStore()
     const formatDate = useDateOptions
     const imageError = ref(false)
-
-    const handleImageError = () => {
-      imageError.value = true
-    }
     const data = ref({
       name: "",
       description: "",
@@ -117,6 +116,19 @@ export default defineComponent({
       router.push("/menu-items")
     }
 
+    const calculateWidth = computed(() => {
+      if (data.value.categories.length === 0) {
+        return 0;
+      }
+
+      const totalCharacters = data.value.categories.reduce(
+        (total, category) => total + category.name.length,
+        0
+      );
+
+      return maxWidthPerCharacter * totalCharacters;
+    });
+
     onMounted(async () => {
       const itemId = route.params.id
       await store.fetchMenuItemDetail(itemId)
@@ -127,6 +139,7 @@ export default defineComponent({
       data.value = menuItemDetail
       dataPrice.value = menuItemPrice
     })
+
     return {
       data,
       formatDate: useDateOptions,
@@ -134,7 +147,7 @@ export default defineComponent({
       dataPrice,
       handleDelete,
       imageError,
-      handleImageError
+      calculateWidth
     }
   }
 })

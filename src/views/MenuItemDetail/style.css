@@ -12,8 +12,8 @@
 
     .img {
       border-radius: 3%;
-      width: 180px;
-      height: 160px
+      width: 350px;
+      height: 230px
     }
 
     .menu-item-info {
@@ -21,6 +21,11 @@
 
       .title {
         color: #6f6f6f
+      }
+
+      .price-text {
+        font-size: 20px;
+        color: #6f6f6f;
       }
 
       .line {
@@ -74,37 +79,41 @@
     }
 
     .categories {
+      margin-inline-start: 10px;
       font-size: 20px;
       color: #6b6b6b;
     }
 
     .categories-info-background {
+      max-width: 98%;
+      margin: 5px 5px 5px 1%;
+
       display: flex;
       align-items: center;
       background-color: #f2f5f4;
       font-size: medium;
       border-radius: 10px;
       padding: 5px;
-      width: 250px;
+    }
 
-      .setting-outlined {
-        font-size: 30px;
-        padding: 10px 10px 10px 10px;
-      }
+    .setting-outlined {
+      font-size: 30px;
+      padding: 10px;
+    }
 
-      .categories-info {
-        display: flex;
-        border-left-width: 4px;
-        margin-left: 10px;
+    .categories-info {
+      display: flex;
+      flex-wrap: wrap;
+      border-left-width: 4px;
+      margin-left: 10px;
+    }
 
-        .categories-info-p {
-          font-size: 20px;
-          margin-bottom: 10px;
-          text-decoration: underline;
-          white-space: nowrap;
-          margin-right: 10px;
-        }
-      }
+    .categories-info-p {
+      font-weight: 500;
+      font-size: 17px;
+      margin-bottom: 10px;
+      white-space: nowrap;
+      margin-right: 10px;
     }
   }
 
@@ -147,7 +156,8 @@
 
   .table-container {
     position: absolute;
-    bottom: -28%;
+    min-height: 200px;
+    top: 870px;
     left: 0;
   }
 }
