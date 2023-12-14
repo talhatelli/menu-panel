@@ -71,7 +71,7 @@ export const menuItemStore = defineStore("menuItemStore", {
         }
       }
     },
-    async fetchMenuItemDetail(itemId: number) {
+    async fetchMenuItemDetail(itemId: string) {
       try {
         const { data } = await axios.get<MenuItemDetail>(`${ENDPOINTS.menuItems}/${itemId}`);
         this.menuItemDetail = data;
@@ -80,7 +80,7 @@ export const menuItemStore = defineStore("menuItemStore", {
         message.error('Data Baseye Not Connected');
       }
     },
-    async fetchMenuItemPrice(itemId: number) {
+    async fetchMenuItemPrice(itemId: string) {
       try {
         const { data } = await axios.get<PriceHistoryItem[]>(`${ENDPOINTS.menuItems}/${itemId}/price-history`);
         console.log('%cmenuItemStore.ts line:86 data', 'color: #007acc;', data);
@@ -90,7 +90,7 @@ export const menuItemStore = defineStore("menuItemStore", {
         message.error('Data Baseye Not Connected');
       }
     },
-    async deleteMenuItem(itemId: number) {
+    async deleteMenuItem(itemId: string) {
       const response = await axios.delete(`${ENDPOINTS.menuItems}/${itemId}`);
       if (response) {
         message.error(response.data.message);
@@ -98,7 +98,7 @@ export const menuItemStore = defineStore("menuItemStore", {
         message.error('Database Not Connected');
       }
     },
-    async updateMenuItem(formData: object, itemId: number) {
+    async updateMenuItem(formData: object, itemId: string) {
       try {
         const { data } = await axios.put(`${ENDPOINTS.menuItems}/${itemId}`, formData);
         if (data) {

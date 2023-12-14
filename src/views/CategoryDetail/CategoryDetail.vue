@@ -5,11 +5,11 @@
         <template #title>
           <p @click="deleteCategoryItem">Are you sure to delete ?</p>
         </template>
-        <a-button class="button">Delete</a-button>
+        <a-button class="button" type="primary" primary>Delete</a-button>
       </a-popconfirm>
     </div>
     <div class="edit">
-      <a-button class="button" :href="'/categories/' + itemId + '/edit'">Edit</a-button>
+      <a-button class="button" :href="'/categories/' + itemId + '/edit'" type="primary" danger>Edit</a-button>
     </div>
     <a-table class="table" :columns="columns" :data-source="data">
       <template #bodyCell="{ column, record }">

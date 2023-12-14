@@ -5,11 +5,11 @@
         <template #title>
           <p>Are you sure to delete ?</p>
         </template>
-        <a-button class="button">Delete</a-button>
+        <a-button class="button" type="primary" primary>Delete</a-button>
       </a-popconfirm>
     </div>
     <div class="popconfirm-edit">
-      <a-button class="button" :href="'/menu-items/' + data._id + '/edit'">Edit</a-button>
+      <a-button class="button" :href="'/menu-items/' + data._id + '/edit'" type="primary" danger>Edit</a-button>
     </div>
     <div class="menu-item-layoute" v-if="data.name">
       <img class="img" :src="data.imageUrl" @error="handleImageError" v-if="!imageError" />
@@ -48,7 +48,7 @@
       </div>
     </div>
     <div class="table-container">
-      <a-table style="color: #3098fe" :columns="columns" :data-source="dataPrice">
+      <a-table :columns="columns" :data-source="dataPrice">
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'price'"> </template>
           <template v-else-if="column.key === 'date'">

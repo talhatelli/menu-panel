@@ -38,18 +38,18 @@ export const categoryStore = defineStore("categoryStore", {
                 message.error('Database Not Connected');
             }
         },
-        async updateCategory(payload: object, itemId: number) {
+        async updateCategory(payload: object, itemId: string) {
             await axios.put(`${ENDPOINTS.categories}/${itemId}`, payload);
         },
-        async fetchCategoryItem(itemId: number) {
+        async fetchCategoryItem(itemId: string) {
             const { data } = await axios.get(`${ENDPOINTS.categories}/${itemId}`);
             this.categoryItem = data
         },
-        async fetchCategoryDetail(itemId: number) {
+        async fetchCategoryDetail(itemId: string) {
             const { data } = await axios.get(`${ENDPOINTS.categories}/${itemId}/items`);
             this.categoryDetail = data
         },
-        async deleteCategoryItem(itemId: number) {
+        async deleteCategoryItem(itemId: string) {
             try {
                 const response = await axios.delete(`${ENDPOINTS.categories}/${itemId}`);
                 message.error(response.data.message);
