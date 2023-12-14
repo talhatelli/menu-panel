@@ -1,20 +1,27 @@
 <template>
   <div class="table-container">
-    <div class="delete">
-      <a-popconfirm placement="leftTop" ok-text="Yes" cancel-text="No" @confirm="handleDelete">
-        <template #title>
-          <p @click="deleteCategoryItem">Are you sure to delete ?</p>
-        </template>
-        <a-button class="button" type="primary" primary>Delete</a-button>
-      </a-popconfirm>
-    </div>
-    <div class="edit">
-      <a-button class="button" :href="'/categories/' + itemId + '/edit'" type="primary" danger>Edit</a-button>
+    <div class="container">
+      <div class="category-name">Category Name: {{ categoryName }}</div>
+      <div class="button-layoute">
+        <div class="delete">
+          <a-popconfirm placement="leftTop" ok-text="Yes" cancel-text="No" @confirm="handleDelete">
+            <template #title>
+              <p @click="deleteCategoryItem">Are you sure to delete ?</p>
+            </template>
+            <a-button class="button" type="primary" primary>Delete</a-button>
+          </a-popconfirm>
+        </div>
+        <div class="edit">
+          <a-button class="button" :href="'/categories/' + itemId + '/edit'" type="primary" danger>Edit</a-button>
+        </div>
+      </div>
     </div>
     <a-table class="table" :columns="columns" :data-source="data">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'imageUrl'">
-          <img :src="record.imageUrl" class="table-image" />
+          <img class="table-image" :src="record.imageUrl" @error="handleImageError(record.id)"
+            v-if="!imageErrors.includes(record.id)" />
+          <img class="error-image" src="/src/assets/icons/no-picture-taking.png" v-if="imageErrors.includes(record.id)" />
         </template>
         <template v-else-if="column.key === 'name'"> </template>
         <template v-else-if="column.key === 'price'"> </template>
@@ -33,7 +40,13 @@
           <a-switch checked-children="✓" un-checked-children="X" v-model:checked="record.status" />
         </template>
         <template v-else-if="column.key === 'actions'">
-          <a :href="'/menu-items/' + record.id">{{ record.actions }}</a>
+          <div>
+            <a :href="'/menu-items/' + record.id">Detail </a>
+            <RightSquareOutlined style="color: #3098fe" />
+            <span> |</span>
+            <a :href="'/menu-items/' + record.id + '/edit'"> Edit </a>
+            <EditOutlined style="color: #dbb12f" />
+          </div>
         </template>
       </template>
     </a-table>
@@ -44,10 +57,15 @@
 import { defineComponent, onMounted, ref } from "vue"
 import { categoryStore } from "@/stores/categoryStore"
 import { useRoute, useRouter } from "vue-router"
+import { RightSquareOutlined, EditOutlined } from "@ant-design/icons-vue"
 import { useDateOptions } from "@/utils"
 import "./style.css"
 
 export default defineComponent({
+  components: {
+    RightSquareOutlined,
+    EditOutlined
+  },
   setup() {
     const route = useRoute()
     const router = useRouter()
@@ -55,6 +73,8 @@ export default defineComponent({
     const data = ref([])
     const formatDate = useDateOptions
     const itemId = route.params.id
+    const categoryName = route.params.name;
+    const imageErrors = ref([])
 
     interface Items {
       name: string
@@ -88,7 +108,10 @@ export default defineComponent({
         }
       })
     })
-
+    const handleImageError = recordId => {
+      console.log(recordId)
+      imageErrors.value.push(recordId)
+    }
     const columns = [
       {
         dataIndex: "imageUrl",
@@ -132,7 +155,10 @@ export default defineComponent({
       data,
       formatDate,
       handleDelete,
-      itemId
+      itemId,
+      categoryName,
+      handleImageError,
+      imageErrors
     }
   }
 })

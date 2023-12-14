@@ -4,7 +4,7 @@
       <template v-if="column.key === 'imageUrl'">
         <img class="table-image" :src="record.imageUrl" @error="handleImageError(record.id)"
           v-if="!imageErrors.includes(record.id)" />
-        <img class="table-image" src="/src/assets/icons/no-picture-taking.png" v-if="imageErrors.includes(record.id)" />
+        <img class="error-image" src="/src/assets/icons/no-picture-taking.png" v-if="imageErrors.includes(record.id)" />
       </template>
       <template v-else-if="column.key === 'name'"> </template>
       <template v-else-if="column.key === 'price'"> </template>
@@ -27,7 +27,13 @@
         </a-popconfirm>
       </template>
       <template v-else-if="column.key === 'actions'">
-        <a :href="'/menu-items/' + record.id">{{ record.actions }}</a>
+        <div>
+          <a :href="'/menu-items/' + record.id">Detail </a>
+          <RightSquareOutlined style="color: #3098fe" />
+          <span> |</span>
+          <a :href="'/menu-items/' + record.id + '/edit'"> Edit </a>
+          <EditOutlined style="color: #dbb12f" />
+        </div>
       </template>
     </template>
   </a-table>
@@ -36,10 +42,15 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue"
 import { menuItemStore } from "@/stores/menuItemStore"
+import { RightSquareOutlined, EditOutlined } from "@ant-design/icons-vue"
 import { useDateOptions } from "@/utils"
 import "./style.css"
 
 export default defineComponent({
+  components: {
+    RightSquareOutlined,
+    EditOutlined
+  },
   setup() {
     const store = menuItemStore()
     const data = ref([])

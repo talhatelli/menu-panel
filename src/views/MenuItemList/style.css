@@ -9,4 +9,13 @@
         height: 130px;
         border-radius: 5%;
     }
+
+    .error-image {
+        display: block;
+        object-fit: cover;
+        margin: 0 auto;
+        width: 150px;
+        height: 130px;
+        border-radius: 5%;
+    }
 }

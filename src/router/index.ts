@@ -52,12 +52,12 @@ const router = createRouter({
       component: CategoryEdit
     },
     {
-      path: '/categories/:id/items',
+      path: '/categories/:id/items/:name',
       name: 'category-detail',
-      component:  CategoryDetail
+      component: CategoryDetail
     },
   ]
-})      
+})
 export default router
 
 
