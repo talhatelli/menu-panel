@@ -1,9 +1,13 @@
 <template>
   <a-table class="table" :columns="columns" :data-source="data">
-    <template #bodyCell="{ column, record }">
+    <template #bodyCell="{column, record}">
       <template v-if="column.key === 'imageUrl'">
-        <img class="table-image" :src="record.imageUrl" @error="handleImageError(record.id)"
-          v-if="!imageErrors.includes(record.id)" />
+        <img
+          class="table-image"
+          :src="record.imageUrl"
+          @error="handleImageError(record.id)"
+          v-if="!imageErrors.includes(record.id)"
+        />
         <img class="error-image" src="/src/assets/icons/no-picture-taking.png" v-if="imageErrors.includes(record.id)" />
       </template>
       <template v-else-if="column.key === 'name'"> </template>
@@ -12,7 +16,8 @@
         <a-timeline>
           <a-timeline-item color="green">
             Created <br />
-            {{ formatDate(record.date) }}</a-timeline-item>
+            {{ formatDate(record.date) }}</a-timeline-item
+          >
           <a-timeline-item>
             Update<br />
             <p>{{ formatDate(record.updatedAt) }}</p>
@@ -20,10 +25,19 @@
         </a-timeline>
       </template>
       <template v-else-if="column.key === 'status'">
-        <a-popconfirm title="Are you sure you enabled or disabled it?" ok-text="Yes" cancel-text="No"
-          @confirm="confirm(record)" @cancel="cancel(record)">
-          <a-switch checked-children="✓" un-checked-children="X" :checked="switchStatus[record.id]"
-            @change="handleChangeOnConfirm(record)" />
+        <a-popconfirm
+          title="Are you sure you enabled or disabled it?"
+          ok-text="Yes"
+          cancel-text="No"
+          @confirm="confirm(record)"
+          @cancel="cancel(record)"
+        >
+          <a-switch
+            checked-children="✓"
+            un-checked-children="X"
+            :checked="switchStatus[record.id]"
+            @change="handleChangeOnConfirm(record)"
+          />
         </a-popconfirm>
       </template>
       <template v-else-if="column.key === 'actions'">
@@ -40,10 +54,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue"
-import { menuItemStore } from "@/stores/menuItemStore"
-import { RightSquareOutlined, EditOutlined } from "@ant-design/icons-vue"
-import { useDateOptions } from "@/utils"
+import {defineComponent, onMounted, ref} from "vue"
+import {menuItemStore} from "@/stores/menuItemStore"
+import {RightSquareOutlined, EditOutlined} from "@ant-design/icons-vue"
+import {useDateOptions} from "@/utils"
 import "./style.css"
 
 export default defineComponent({
@@ -60,7 +74,6 @@ export default defineComponent({
     const imageErrors = ref([])
 
     const handleImageError = recordId => {
-      console.log(recordId)
       imageErrors.value.push(recordId)
     }
     const confirm = (record: any) => {
@@ -90,6 +103,7 @@ export default defineComponent({
     onMounted(async () => {
       await store.fetchMenuItem()
       const items: items[] = store.getMenuItem
+
       data.value = items.map(item => {
         return {
           id: item._id,
@@ -109,13 +123,13 @@ export default defineComponent({
       {
         dataIndex: "imageUrl",
         key: "imageUrl",
-        scopedSlots: { customRender: "imageSlot" }
+        scopedSlots: {customRender: "imageSlot"}
       },
       {
         title: "Name",
         dataIndex: "name",
         key: "name",
-        scopedSlots: { customRender: "nameSlot" }
+        scopedSlots: {customRender: "nameSlot"}
       },
       {
         title: "PRICE",

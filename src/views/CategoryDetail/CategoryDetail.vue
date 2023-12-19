@@ -17,11 +17,19 @@
       </div>
     </div>
     <a-table class="table" :columns="columns" :data-source="data">
-      <template #bodyCell="{ column, record }">
+      <template #bodyCell="{column, record}">
         <template v-if="column.key === 'imageUrl'">
-          <img class="table-image" :src="record.imageUrl" @error="handleImageError(record.id)"
-            v-if="!imageErrors.includes(record.id)" />
-          <img class="error-image" src="/src/assets/icons/no-picture-taking.png" v-if="imageErrors.includes(record.id)" />
+          <img
+            class="table-image"
+            :src="record.imageUrl"
+            @error="handleImageError(record.id)"
+            v-if="!imageErrors.includes(record.id)"
+          />
+          <img
+            class="error-image"
+            src="/src/assets/icons/no-picture-taking.png"
+            v-if="imageErrors.includes(record.id)"
+          />
         </template>
         <template v-else-if="column.key === 'name'"> </template>
         <template v-else-if="column.key === 'price'"> </template>
@@ -29,7 +37,8 @@
           <a-timeline>
             <a-timeline-item color="green">
               Created <br />
-              {{ formatDate(record.date) }}</a-timeline-item>
+              {{ formatDate(record.date) }}</a-timeline-item
+            >
             <a-timeline-item>
               Update<br />
               <p>{{ formatDate(record.updatedAt) }}</p>
@@ -54,11 +63,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue"
-import { categoryStore } from "@/stores/categoryStore"
-import { useRoute, useRouter } from "vue-router"
-import { RightSquareOutlined, EditOutlined } from "@ant-design/icons-vue"
-import { useDateOptions } from "@/utils"
+import {defineComponent, onMounted, ref} from "vue"
+import {categoryStore} from "@/stores/categoryStore"
+import {useRoute, useRouter} from "vue-router"
+import {RightSquareOutlined, EditOutlined} from "@ant-design/icons-vue"
+import {useDateOptions} from "@/utils"
 import "./style.css"
 
 export default defineComponent({
@@ -73,7 +82,7 @@ export default defineComponent({
     const data = ref([])
     const formatDate = useDateOptions
     const itemId = route.params.id
-    const categoryName = route.params.name;
+    const categoryName = route.params.name
     const imageErrors = ref([])
 
     interface Items {
@@ -90,7 +99,6 @@ export default defineComponent({
       })
     }
     onMounted(async () => {
-      console.log('%cCategoryDetail.vue line:59 itemId', 'color: #007acc;', itemId);
       await store.fetchCategoryDetail(itemId)
       const items: items[] = store.getCategoryDetail
 
@@ -109,20 +117,19 @@ export default defineComponent({
       })
     })
     const handleImageError = recordId => {
-      console.log(recordId)
       imageErrors.value.push(recordId)
     }
     const columns = [
       {
         dataIndex: "imageUrl",
         key: "imageUrl",
-        scopedSlots: { customRender: "imageSlot" }
+        scopedSlots: {customRender: "imageSlot"}
       },
       {
         title: "Name",
         dataIndex: "name",
         key: "name",
-        scopedSlots: { customRender: "nameSlot" }
+        scopedSlots: {customRender: "nameSlot"}
       },
       {
         title: "PRICE",

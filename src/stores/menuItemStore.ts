@@ -83,7 +83,6 @@ export const menuItemStore = defineStore("menuItemStore", {
     async fetchMenuItemPrice(itemId: string) {
       try {
         const { data } = await axios.get<PriceHistoryItem[]>(`${ENDPOINTS.menuItems}/${itemId}/price-history`);
-        console.log('%cmenuItemStore.ts line:86 data', 'color: #007acc;', data);
         this.menuItemPrice = data;
       }
       catch (error) {

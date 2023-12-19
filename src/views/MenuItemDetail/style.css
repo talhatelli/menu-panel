@@ -12,10 +12,16 @@
 
     .img {
       border-radius: 3%;
-      width: 350px;
-      height: 230px
+      width: 300px;
+      height: 280px
     }
-
+    .error-image {
+      display: block;
+      object-fit: cover;
+      width: 300px;
+      height: 280px;
+      border-radius: 5%;
+  }
     .menu-item-info {
       margin-left: 20px;
 
@@ -157,7 +163,7 @@
   .table-container {
     position: absolute;
     min-height: 200px;
-    top: 870px;
+    top: 800px;
     left: 0;
   }
 }
