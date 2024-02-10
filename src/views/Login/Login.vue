@@ -29,7 +29,8 @@ export default defineComponent({
         password: password.value
       }
       await store.fetchLogin(formData)
-      router.push("/menu-items")
+      await router.push("/menu-items")
+      await location.reload()
     }
 
     return {

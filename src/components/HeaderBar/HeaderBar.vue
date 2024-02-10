@@ -37,8 +37,8 @@ export default defineComponent({
 
     const handleLogout = async () => {
       await localStorage.setItem("token", "")
-      await location.reload()
       await router.push("/login")
+      await location.reload()
     }
     const mail =localStorage.getItem('email');
     return {
