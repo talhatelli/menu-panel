@@ -144,7 +144,6 @@ export default defineComponent({
       await store.fetchMenuItemPrice(itemId)
       const menuItemDetail = store.getMenuItemDetail
       const menuItemPrice = store.getMenuItemPrice
-      console.log(data.value.categories.length)
 
       data.value = menuItemDetail
       dataPrice.value = menuItemPrice

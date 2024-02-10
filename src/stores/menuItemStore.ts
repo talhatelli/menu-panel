@@ -50,7 +50,12 @@ export const menuItemStore = defineStore("menuItemStore", {
   actions: {
     async fetchMenuItem() {
       try {
-        const { data } = await axios.get<MenuItem[]>(ENDPOINTS.menuItems);
+        const token = localStorage.getItem("token");
+        const { data } = await axios.get<MenuItem[]>(ENDPOINTS.menuItems, {
+          headers: {
+              Authorization: `Bearer ${token}`
+          } 
+        });
         this.menuItems = data;
       }
       catch (error) {
@@ -59,7 +64,13 @@ export const menuItemStore = defineStore("menuItemStore", {
     },
     async newMenuItem(formData: object) {
       try {
-        const { data } = await axios.post(ENDPOINTS.menuItems, formData);
+        const token = localStorage.getItem("token");
+
+          await axios.post(ENDPOINTS.menuItems, formData, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+          });
       }
       catch (error: any) {
         if (error.response && error.response.data && error.response.data.errors) {

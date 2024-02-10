@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
+import Login from '@/views/Login/Login.vue';
 import MenuItemList from '@/views/MenuItemList/MenuItemList.vue';
 import CategoryList from '@/views/CategoryList/CategoryList.vue'
 import MenuItemForm from '@/views/MenuItemForm/MenuItemForm.vue'
@@ -13,8 +13,9 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
-      redirect: '/menu-items',
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
       path: '/menu-items',
