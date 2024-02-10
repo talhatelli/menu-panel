@@ -18,12 +18,11 @@ export const loginStore = defineStore("loginStore", {
         async fetchLogin(formData: object) {
             try {
                 const { data } = await axios.post(`${ENDPOINTS.login}/login`,formData)
-                this.login = data 
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('email', data.user.email);
             }
             catch (error) {
-                message.error('Data Baseye Not Connected');
+                message.error('Login failed. Try again.');
             }
         },
     },

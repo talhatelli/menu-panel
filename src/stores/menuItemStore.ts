@@ -51,7 +51,6 @@ export const menuItemStore = defineStore("menuItemStore", {
     async fetchMenuItem() {
       try {
         const token = localStorage.getItem("token");
-        console.log('%cmenuItemStore.ts line:54 token', 'color: #26bfa5;', token);
         const { data } = await axios.get<MenuItem[]>(ENDPOINTS.menuItems, {
           headers: {
               Authorization: `Bearer ${token}`
