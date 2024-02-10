@@ -77,7 +77,6 @@ export default defineComponent({
         modelRef[key] = menuItemDetail[key] || ""
       })
       modelRef.categories.name = modelRef.categories.map(category => category.name)
-      console.log(modelRef)
 
       data.value = categoryItems.map(item => {
         return {
