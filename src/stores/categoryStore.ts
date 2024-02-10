@@ -23,7 +23,12 @@ export const categoryStore = defineStore("categoryStore", {
     actions: {
         async fetchCategories() {
             try {
-                const { data } = await axios.get(ENDPOINTS.categories)
+                const token = localStorage.getItem("token");
+                const { data } = await axios.get(ENDPOINTS.categories, {
+                    headers: {
+                        Authorization: `${token}`
+                    }
+                });
                 this.categories = data
             }
             catch (error) {
@@ -32,7 +37,14 @@ export const categoryStore = defineStore("categoryStore", {
         },
         async newCategory(formData: object) {
             try {
-                await axios.post(ENDPOINTS.categories, formData)
+
+                const token = localStorage.getItem("token");
+
+                await axios.post(ENDPOINTS.categories, formData, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
                 message.success("Added Successfully")
             } catch (error) {
                 message.error('Database Not Connected');

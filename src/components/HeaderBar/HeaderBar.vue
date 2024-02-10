@@ -6,12 +6,12 @@
 
     <a-dropdown>
       <template #overlay>
-        <a-menu @click="handleMenuClick">
-          <a-menu-item key="2">
+        <a-menu>
+          <a-menu-item>
             <UserOutlined />
             Change Password
           </a-menu-item>
-          <a-menu-item key="3">
+          <a-menu-item @click="handleLogout">
             <UserOutlined />
             Log out
           </a-menu-item>
@@ -22,28 +22,29 @@
         <div class="email-dropdown">
           {{ mail }}
         </div>
-
       </div>
     </a-dropdown>
   </a-layout-header>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import {defineComponent} from "vue"
 import "./style.css"
-import type { MenuProps } from "ant-design-vue";
+import {useRouter} from "vue-router"
 
 export default defineComponent({
-
   setup() {
-    const handleMenuClick: MenuProps['onClick'] = e => {
-      console.log('click', e);
-    };
+    const router = useRouter()
 
-    const mail = "ahmettalhatelli1453@gmail.com";
+    const handleLogout = async () => {
+      await localStorage.setItem("token", "")
+      await location.reload()
+      await router.push("/login")
+    }
+    const mail =localStorage.getItem('email');
     return {
-      mail, handleMenuClick
-    };
-  },
-});
-
+      mail,
+      handleLogout
+    }
+  }
+})
 </script>
