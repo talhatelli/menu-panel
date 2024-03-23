@@ -1,6 +1,6 @@
 <template>
   <a-table class="table" :columns="columns" :data-source="data">
-    <template #bodyCell="{column, record}">
+    <template #bodyCell="{ column, record }">
       <template v-if="column.key === 'imageUrl'">
         <img
           class="table-image"
@@ -8,16 +8,20 @@
           @error="handleImageError(record.id)"
           v-if="!imageErrors.includes(record.id)"
         />
-        <img class="error-image" src="/src/assets/icons/no-picture-taking.png" v-if="imageErrors.includes(record.id)" />
+        <img
+          class="error-image"
+          src="/src/assets/icons/no-picture-taking.png"
+          v-else
+        />
       </template>
-      <template v-else-if="column.key === 'name'"> </template>
-      <template v-else-if="column.key === 'price'"> </template>
+      <template v-else-if="column.key === 'name'">{{ record.name }}</template>
+      <template v-else-if="column.key === 'price'">{{ record.price }}</template>
       <template v-else-if="column.key === 'date'">
         <a-timeline>
           <a-timeline-item color="green">
             Created <br />
-            {{ formatDate(record.date) }}</a-timeline-item
-          >
+            {{ formatDate(record.date) }}
+          </a-timeline-item>
           <a-timeline-item>
             Update<br />
             <p>{{ formatDate(record.updatedAt) }}</p>
@@ -35,8 +39,8 @@
           <a-switch
             checked-children="✓"
             un-checked-children="X"
-            :checked="switchStatus[record.id]"
-            @change="handleChangeOnConfirm(record)"
+            :checked="record.isActive"
+            @change="handleChange(record)"
           />
         </a-popconfirm>
       </template>
@@ -54,108 +58,98 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, ref} from "vue"
-import {menuItemStore} from "@/stores/menuItemStore"
-import {RightSquareOutlined, EditOutlined} from "@ant-design/icons-vue"
-import {useDateOptions} from "@/utils"
-import "./style.css"
+import { defineComponent, onMounted, ref } from "vue";
+import { menuItemStore } from "@/stores/menuItemStore";
+import { RightSquareOutlined, EditOutlined } from "@ant-design/icons-vue";
+import { useDateOptions } from "@/utils";
+import "./style.css";
 
 export default defineComponent({
   components: {
     RightSquareOutlined,
-    EditOutlined
+    EditOutlined,
   },
   setup() {
-    const store = menuItemStore()
-    const data = ref([])
-    const switchStatus = ref([false])
-    const formatDate = useDateOptions
-    let confirmTriggered = false
-    const imageErrors = ref([])
+    const store = menuItemStore();
+    const data = ref([]);
+    const formatDate = useDateOptions;
+    let confirmTriggered = false;
+    const imageErrors = ref([]);
 
-    const handleImageError = recordId => {
-      imageErrors.value.push(recordId)
-    }
-    const confirm = (record: any) => {
-      switchStatus.value[record.id] = !switchStatus.value[record.id]
-      confirmTriggered = true
-    }
+    const handleImageError = (recordId) => {
+      imageErrors.value.push(recordId);
+    };
+    const confirm = async (record) => {
+      record.isActive = !record.isActive;
+      await store.updateMenuItemIsActive(record.id, record.isActive);
+      confirmTriggered = true;
+    };
 
     const cancel = () => {
-      confirmTriggered = false
-    }
+      confirmTriggered = false;
+    };
 
-    const handleChangeOnConfirm = () => {
+    const handleChange = (record) => {
       if (confirmTriggered) {
-        confirmTriggered = false
+        confirmTriggered = false;
       }
-    }
-    interface Items {
-      name: string
-      description: string
-      price: number
-      createdAt: string
-      updatedAt: string
-      isDeleted: boolean
-      imageUrl: string
-    }
+    };
 
     onMounted(async () => {
-      await store.fetchMenuItem()
-      const items: items[] = store.getMenuItem
+      await store.fetchMenuItem();
+      const items = store.getMenuItem;
 
-      data.value = items.map(item => {
-        return {
-          id: item._id,
-          name: item.name,
-          address: item.description,
-          price: item.price,
-          date: item.createdAt,
-          updatedAt: item.updatedAt,
-          status: item.isDeleted,
-          actions: "Detail Edit",
-          imageUrl: item.imageUrl
-        }
-      })
-    })
+      data.value = items.map((item) => ({
+        id: item._id,
+        name: item.name,
+        address: item.description,
+        price: item.price,
+        date: item.createdAt,
+        updatedAt: item.updatedAt,
+        status: item.isDeleted,
+        actions: "Detail Edit",
+        imageUrl: item.imageUrl,
+        isActive: item.isActive,
+      }));
+    });
 
     const columns = [
       {
         dataIndex: "imageUrl",
         key: "imageUrl",
-        scopedSlots: {customRender: "imageSlot"}
+        scopedSlots: { customRender: "imageSlot" },
       },
       {
         title: "Name",
         dataIndex: "name",
         key: "name",
-        scopedSlots: {customRender: "nameSlot"}
+        scopedSlots: { customRender: "nameSlot" },
       },
       {
         title: "PRICE",
         dataIndex: "price",
         key: "price",
-        ellipsis: true
+        ellipsis: true,
       },
       {
         title: "DATE",
         dataIndex: "date",
         key: "date",
-        ellipsis: true
+        ellipsis: true,
       },
       {
         title: "STATUS",
         dataIndex: "status",
         key: "status",
-        ellipsis: true
+        ellipsis: true,
       },
       {
         title: "ACTIONS",
         dataIndex: "actions",
         key: "actions",
-        ellipsis: true
-      }
-    ]
+        ellipsis: true,
+      },
+    ];
 
     return {
       columns,
@@ -164,11 +158,10 @@ export default defineComponent({
       useDateOptions,
       confirm,
       cancel,
-      switchStatus,
-      handleChangeOnConfirm,
+      handleChange,
       imageErrors,
-      handleImageError
-    }
-  }
-})
+      handleImageError,
+    };
+  },
+});
 </script>

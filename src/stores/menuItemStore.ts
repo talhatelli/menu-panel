@@ -119,6 +119,20 @@ export const menuItemStore = defineStore("menuItemStore", {
         message.error('Database Not Connected');
       }
     },
-
+    async updateMenuItemIsActive(itemId: string, isActive: boolean) {
+  try {
+    const token = localStorage.getItem("token");
+    const { data } = await axios.put(`${ENDPOINTS.menuItems}/status/${itemId}`, { isActive }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    if (data) {
+      message.success('Update Successful');
+    }
+  } catch (error: any) {
+    message.error('Database Not Connected');
+  }
+}
   },
 })
