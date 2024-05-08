@@ -13,6 +13,12 @@
         <a-menu-item key="category-menu-list"> <RouterLink to="/categories">List</RouterLink> </a-menu-item>
         <a-menu-item key="categories-create"> <RouterLink to="/categories/create">Create</RouterLink> </a-menu-item>
       </a-sub-menu>
+      <a-sub-menu key="orders-menu">
+        <template #title>
+          <span> <UnorderedListOutlined /> <span> Orders </span> </span>
+        </template>
+        <a-menu-item key="order-list"> <RouterLink to="/order-list">List</RouterLink> </a-menu-item>
+      </a-sub-menu>
     </a-menu>
   </a-layout-sider>
 </template>

@@ -43,7 +43,6 @@
 
 <script>
 import {ref, onMounted} from "vue"
-import {message} from "ant-design-vue"
 import {reactive, defineComponent} from "vue"
 import {Form} from "ant-design-vue"
 import {menuItemStore} from "@/stores/menuItemStore"

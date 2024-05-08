@@ -8,6 +8,7 @@ import MenuItemDetail from '@/views/MenuItemDetail/MenuItemDetail.vue';
 import MenuItemEdit from '@/views/MenuItemEdit/MenuItemEdit.vue';
 import CategoryEdit from '@/views/CategoryEdit/CategoryEdit.vue';
 import CategoryDetail from '@/views/CategoryDetail/CategoryDetail.vue';
+import OrderList from "@/views/OrderList/OrderList.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/categories',
       name: 'categories',
       component: CategoryList
+    },
+    {
+      path: '/order-list',
+      name: 'order-list',
+      component: OrderList
     },
     {
       path: '/menu-items/create',
