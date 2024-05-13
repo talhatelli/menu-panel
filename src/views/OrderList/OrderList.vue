@@ -15,6 +15,7 @@
         />
       </template>
       <template v-else-if="column.key === 'name'">{{ record.name }}</template>
+      <template v-else-if="column.key === 'note'">{{ record.note }}</template>
       <template v-else-if="column.key === 'price'">{{ record.price }}</template>
       <template v-else-if="column.key === 'date'">
         <a-timeline>
@@ -22,35 +23,11 @@
             Created <br />
             {{ formatDate(record.date) }}
           </a-timeline-item>
-          <a-timeline-item>
-            Update<br />
-            <p>{{ formatDate(record.updatedAt) }}</p>
-          </a-timeline-item>
         </a-timeline>
       </template>
       <template v-else-if="column.key === 'status'">
-        <a-popconfirm
-          title="Are you sure you enabled or disabled it?"
-          ok-text="Yes"
-          cancel-text="No"
-          @confirm="confirm(record)"
-          @cancel="cancel(record)"
-        >
-          <a-switch
-            checked-children="✓"
-            un-checked-children="X"
-            :checked="record.isActive"
-            @change="handleChange(record)"
-          />
-        </a-popconfirm>
-      </template>
-      <template v-else-if="column.key === 'actions'">
-        <div>
-          <a :href="'/menu-items/' + record.id">Detail </a>
-          <RightSquareOutlined style="color: #3098fe" />
-          <span> |</span>
-          <a :href="'/menu-items/' + record.id + '/edit'"> Edit </a>
-          <EditOutlined style="color: #dbb12f" />
+        <div class="edit">
+          <a-button class="button" @click="handelStatus(record.id)" type="primary" danger>Edit</a-button>
         </div>
       </template>
     </template>
@@ -59,7 +36,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
-import { menuItemStore } from "@/stores/menuItemStore";
+import { ordersStore} from "@/stores/ordersStore";
 import { RightSquareOutlined, EditOutlined } from "@ant-design/icons-vue";
 import { useDateOptions } from "@/utils";
 import "./style.css";
@@ -70,7 +47,7 @@ export default defineComponent({
     EditOutlined,
   },
   setup() {
-    const store = menuItemStore();
+    const store = ordersStore();
     const data = ref([]);
     const formatDate = useDateOptions;
     let confirmTriggered = false;
@@ -78,6 +55,10 @@ export default defineComponent({
 
     const handleImageError = (recordId) => {
       imageErrors.value.push(recordId);
+    };
+    const handelStatus = async (recordId) => {
+      console.log('%csrc/views/OrderList/OrderList.vue:61 recordId', 'color: #26bfa5;', recordId);
+      await store.fetchUpdateOrderStatus(recordId)
     };
     const confirm = async (record) => {
       record.isActive = !record.isActive;
@@ -96,20 +77,18 @@ export default defineComponent({
     };
 
     onMounted(async () => {
-      await store.fetchMenuItem();
-      const items = store.getMenuItem;
+      await store.fetchOrdersList();
+      const items = store.getOrdersList;
 
       data.value = items.map((item) => ({
         id: item._id,
         name: item.name,
-        address: item.description,
+        note: item.note,
         price: item.price,
         date: item.createdAt,
-        updatedAt: item.updatedAt,
-        status: item.isDeleted,
-        actions: "Detail Edit",
+        status: item.status,
         imageUrl: item.imageUrl,
-        isActive: item.isActive,
+        count: item.count,
       }));
     });
 
@@ -126,6 +105,12 @@ export default defineComponent({
         scopedSlots: { customRender: "nameSlot" },
       },
       {
+        title: "Note",
+        dataIndex: "note",
+        key: "note",
+        scopedSlots: { customRender: "nameSlot" },
+      },
+      {
         title: "PRICE",
         dataIndex: "price",
         key: "price",
@@ -138,15 +123,9 @@ export default defineComponent({
         ellipsis: true,
       },
       {
-        title: "STATUS",
+        title: "Status",
         dataIndex: "status",
         key: "status",
-        ellipsis: true,
-      },
-      {
-        title: "ACTIONS",
-        dataIndex: "actions",
-        key: "actions",
         ellipsis: true,
       },
     ];
@@ -161,6 +140,7 @@ export default defineComponent({
       handleChange,
       imageErrors,
       handleImageError,
+      handelStatus
     };
   },
 });
