@@ -25,5 +25,14 @@ export const loginStore = defineStore("loginStore", {
                 message.error('Login failed. Try again.');
             }
         },
+
+        async fetchChangePassword(payload: { email: string;  newPassword: string }) {
+            try {
+                await axios.post(`${ENDPOINTS.login}/change-password`, payload);
+                message.error('Login failed. Try again.');
+            } catch (error) {
+              return error;
+            }
+          },
     },
 })

@@ -44,8 +44,18 @@ export const ordersStore = defineStore("ordersStore", {
     async fetchUpdateOrderStatus(itemId: string) {
         try {
           // const token = localStorage.getItem("token");
-          const { data } = await axios.put<OrderList[]>(`${ENDPOINTS.orders}/${itemId}`);
-          this.orderList = data;                      
+           await axios.put<OrderList[]>(`${ENDPOINTS.orders}/${itemId}`);
+        }
+        catch (error) {
+          message.error('Data Baseye Not Connected');
+        }
+      },
+      async fetchDeletedOrder(itemId: string) {
+        try {
+          // const token = localStorage.getItem("token");
+          const response = await axios.delete<OrderList[]>(`${ENDPOINTS.orders}/${itemId}`);
+          message.error(response.data.message);
+
         }
         catch (error) {
           message.error('Data Baseye Not Connected');

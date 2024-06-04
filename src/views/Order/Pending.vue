@@ -16,7 +16,7 @@
       </template>
       <template v-else-if="column.key === 'name'">{{ record.name }}</template>
       <template v-else-if="column.key === 'note'">{{ record.note }}</template>
-      <template v-else-if="column.key === 'price'">{{ record.price }}</template>
+      <template v-else-if="column.key === 'table'">{{ record.table }}</template>
       <template v-else-if="column.key === 'date'">
         <a-timeline>
           <a-timeline-item color="green">
@@ -27,7 +27,7 @@
       </template>
       <template v-else-if="column.key === 'status'">
         <div class="edit">
-          <a-button class="button" @click="handelStatus(record.id)" type="primary" danger>Edit</a-button>
+          <a-button class="button" @click="handelStatus(record.id)" type="primary" > Add Getting Ready</a-button>
         </div>
       </template>
     </template>
@@ -39,7 +39,7 @@ import { defineComponent, onMounted, ref } from "vue";
 import { ordersStore} from "@/stores/ordersStore";
 import { RightSquareOutlined, EditOutlined } from "@ant-design/icons-vue";
 import { useDateOptions } from "@/utils";
-import "./style.css";
+import "./Pending.css";
 
 export default defineComponent({
   components: {
@@ -57,8 +57,9 @@ export default defineComponent({
       imageErrors.value.push(recordId);
     };
     const handelStatus = async (recordId) => {
-      console.log('%csrc/views/OrderList/OrderList.vue:61 recordId', 'color: #26bfa5;', recordId);
       await store.fetchUpdateOrderStatus(recordId)
+      window.location.reload(); 
+
     };
     const confirm = async (record) => {
       record.isActive = !record.isActive;
@@ -78,18 +79,25 @@ export default defineComponent({
 
     onMounted(async () => {
       await store.fetchOrdersList();
-      const items = store.getOrdersList;
 
-      data.value = items.map((item) => ({
-        id: item._id,
-        name: item.name,
-        note: item.note,
-        price: item.price,
-        date: item.createdAt,
-        status: item.status,
-        imageUrl: item.imageUrl,
-        count: item.count,
-      }));
+      setInterval(() => {
+        store.fetchOrdersList(); 
+      }, 60000);
+
+      const items = store.getOrdersList;
+      
+      data.value = items.filter((item) => item.status === "pending") 
+      .map((item) => ({
+      id: item._id,
+      name: item.name,
+      note: item.note,
+      table: item.table,
+      date: item.createdAt,
+      status: item.status,
+      imageUrl: item.imageUrl,
+      count: item.count,
+    }));
+
     });
 
     const columns = [
@@ -111,9 +119,9 @@ export default defineComponent({
         scopedSlots: { customRender: "nameSlot" },
       },
       {
-        title: "PRICE",
-        dataIndex: "price",
-        key: "price",
+        title: "Table",
+        dataIndex: "table",
+        key: "table",
         ellipsis: true,
       },
       {

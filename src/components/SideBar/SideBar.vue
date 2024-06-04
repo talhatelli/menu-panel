@@ -17,7 +17,9 @@
         <template #title>
           <span> <UnorderedListOutlined /> <span> Orders </span> </span>
         </template>
-        <a-menu-item key="order-list"> <RouterLink to="/order-list">List</RouterLink> </a-menu-item>
+        <a-menu-item key="pending-order"> <RouterLink to="/pending-order">Pending</RouterLink> </a-menu-item>
+        <a-menu-item key="getting-ready-order"> <RouterLink to="/getting-ready-order">Getting Ready</RouterLink> </a-menu-item>
+        <a-menu-item key="ready-order"> <RouterLink to="/ready-order">Ready</RouterLink> </a-menu-item>
       </a-sub-menu>
     </a-menu>
   </a-layout-sider>

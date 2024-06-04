@@ -8,7 +8,9 @@ import MenuItemDetail from '@/views/MenuItemDetail/MenuItemDetail.vue';
 import MenuItemEdit from '@/views/MenuItemEdit/MenuItemEdit.vue';
 import CategoryEdit from '@/views/CategoryEdit/CategoryEdit.vue';
 import CategoryDetail from '@/views/CategoryDetail/CategoryDetail.vue';
-import OrderList from "@/views/OrderList/OrderList.vue";
+import GettingReadyOrder from "@/views/Order/Getting.vue";
+import PendingOrder from "@/views/Order/Pending.vue";
+import ReadyOrder from "@/views/Order/Ready.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -29,9 +31,19 @@ const router = createRouter({
       component: CategoryList
     },
     {
-      path: '/order-list',
-      name: 'order-list',
-      component: OrderList
+      path: '/getting-ready-order',
+      name: 'getting-ready-order',
+      component: GettingReadyOrder
+    },
+    {
+      path: '/pending-order',
+      name: 'pending-order',
+      component: PendingOrder
+    }, 
+    {
+      path: '/ready-order',
+      name: 'ready-order',
+      component: ReadyOrder
     },
     {
       path: '/menu-items/create',
