@@ -51,7 +51,7 @@ Modern restoranlar için geliştirilmiş, QR kod tabanlı menü ve sipariş yön
 
 1. Projeyi klonlayın
 ```bash
-git clone [proje-url]
+git clone https://github.com/talhatelli/menu-panel.git
 ```
 
 2. Bağımlılıkları yükleyin
@@ -87,15 +87,6 @@ npm run dev
    - Sipariş görüntüleme
    - Sipariş durumu güncelleme
 
-## 📊 Raporlama Özellikleri
-
-- Günlük/Haftalık/Aylık satış raporları
-- Popüler ürün analizleri
-- Masa doluluk oranları
-- Personel performans takibi
-
-[Raporlama Ekranı Görüntüsü]
-
 ## 🔒 Güvenlik
 
 - JWT tabanlı kimlik doğrulama
@@ -108,5 +99,3 @@ npm run dev
 - Responsive tasarım
 - Mobil cihazlarda optimize performans
 - Touch-friendly arayüz
-
-[Mobil Görünüm Ekran Görüntüsü]
