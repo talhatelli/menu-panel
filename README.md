@@ -10,15 +10,12 @@ Modern restoranlar için geliştirilmiş, QR kod tabanlı menü ve sipariş yön
 - Masa bazlı sipariş takibi
 - Temassız sipariş imkanı
 
-[QR Kod Yönetimi Ekran Görüntüsü]
-
 ### 2. Menü Yönetimi
 - Kategori bazlı ürün organizasyonu
 - Ürün ekleme, düzenleme ve silme
 - Fiyat ve stok yönetimi
 - Özel notlar ve alerjen bilgileri ekleme
 
-[Menü Yönetimi Ekran Görüntüsü]
 
 ### 3. Sipariş Takip Sistemi
 - Anlık sipariş bildirimleri
@@ -26,15 +23,11 @@ Modern restoranlar için geliştirilmiş, QR kod tabanlı menü ve sipariş yön
 - Sipariş durumu güncelleme
 - Sipariş geçmişi ve raporlama
 
-[Sipariş Takip Ekranı Görüntüsü]
-
 ### 4. Yönetim Paneli
 - Kullanıcı dostu arayüz
 - Detaylı raporlama
 - Personel yönetimi
 - Sistem ayarları
-
-[Dashboard Ekran Görüntüsü]
 
 ## 🛠 Teknik Altyapı
 
@@ -45,60 +38,14 @@ Modern restoranlar için geliştirilmiş, QR kod tabanlı menü ve sipariş yön
 - **Build Tool:** Vite
 
 ## 📱 Kullanıcı Arayüzleri
-
-### 1. Giriş Ekranı
-- Güvenli giriş sistemi
-- Rol bazlı yetkilendirme
-- Şifre yenileme özelliği
-
-[Giriş Ekranı Görüntüsü]
-
-### 2. Ana Dashboard
-- Günlük sipariş özeti
-- Aktif masalar
-- Popüler ürünler
-- Satış grafikleri
-
-[Dashboard Görüntüsü]
-
-### 3. Kategori ve Ürün Yönetimi
-- Sürükle-bırak kategori sıralaması
-- Toplu ürün işlemleri
-- Görsel yükleme ve düzenleme
-- Fiyat güncelleme
-
-[Kategori Yönetimi Görüntüsü]
-
-### 4. Sipariş İşlemleri
-- Gerçek zamanlı sipariş takibi
-- Masa durumu monitörü
-- Sipariş detayları
-- Mutfak ekranı
-
-[Sipariş Ekranı Görüntüsü]
-
-## 💡 Müşteri Deneyimi
-
-1. **QR Kod Okutma**
-   - Masadaki QR kodu okut
-   - Menüyü görüntüle
-   - Sipariş ver
-   
-[QR Kod Kullanımı Görüntüsü]
-
-2. **Menü Görüntüleme**
-   - Kategorilere göz at
-   - Ürün detaylarını incele
-   - Fiyatları gör
-   
-[Müşteri Menü Görüntüsü]
-
-3. **Sipariş Verme**
-   - Ürün seç
-   - Özel notlar ekle
-   - Siparişi onayla
-   
-[Sipariş Verme Ekranı]
+<img width="1440" alt="Screenshot 2025-02-13 at 11 22 17" src="https://github.com/user-attachments/assets/b56ba838-0e20-4452-acee-69ec46a755f5" />
+<img width="1440" alt="Screenshot 2025-02-13 at 11 22 57" src="https://github.com/user-attachments/assets/2d323eb5-e013-48ce-ab34-af6e06efde2f" />
+<img width="1440" alt="Screenshot 2025-02-13 at 11 23 08" src="https://github.com/user-attachments/assets/5f7bf418-ba96-457d-94d5-420ed8a036a1" />
+<img width="1440" alt="Screenshot 2025-02-13 at 11 23 20" src="https://github.com/user-attachments/assets/24e1889c-1b7b-45f3-94dd-a1c22261ff20" />
+<img width="1440" alt="Screenshot 2025-02-13 at 11 23 34" src="https://github.com/user-attachments/assets/f191a149-c48e-41a1-a04f-f8c477c2e375" />
+<img width="1440" alt="Screenshot 2025-02-13 at 11 23 44" src="https://github.com/user-attachments/assets/3b716da7-ce1c-439f-8f46-68d56f388fcf" />
+<img width="1440" alt="Screenshot 2025-02-13 at 11 23 51" src="https://github.com/user-attachments/assets/bc4d0518-3e8e-4865-b4de-7a8ec779bdc5" />
+<img width="1440" alt="Screenshot 2025-02-13 at 11 24 18" src="https://github.com/user-attachments/assets/45ab2b58-6edc-41f2-a2b7-261676e40ff7" />
 
 ## 🔧 Kurulum
 
